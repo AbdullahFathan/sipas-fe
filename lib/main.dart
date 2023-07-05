@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sipas/pages/auth/login_page.dart';
+import 'package:sipas/config/routes.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,8 +11,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Sipas Gemastik",
-        theme: ThemeData(fontFamily: "Roboto"),
-        home: LoginPage());
+      title: "Sipas Gemastik",
+      theme: ThemeData(fontFamily: "Roboto"),
+      initialRoute: "/",
+      onGenerateRoute: RouteGenerator.generateRoute,
+    );
   }
 }

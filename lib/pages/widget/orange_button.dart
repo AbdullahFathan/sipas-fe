@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 
 class OrangeButton extends StatelessWidget {
   final String contentText;
   final void Function()? onPressedFunc;
+  final Size minimumSize;
+  final Size maximumSize;
   const OrangeButton({
     Key? key,
     required this.contentText,
     this.onPressedFunc,
+    required this.minimumSize,
+    required this.maximumSize,
   }) : super(key: key);
 
   @override
@@ -18,8 +23,8 @@ class OrangeButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           backgroundColor: orangeColor,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          minimumSize: const Size(280, 48),
-          maximumSize: const Size(328, 48),
+          minimumSize: minimumSize,
+          maximumSize: maximumSize,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           )),

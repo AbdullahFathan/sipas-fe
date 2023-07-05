@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
-import 'package:sipas/pages/auth/forgot_pass_page.dart';
-import 'package:sipas/pages/auth/register_page.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
@@ -84,19 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   //Forgot Password Text
-                  TapText(
-                    text1: null,
-                    text2: "Lupa Kata Sandi?",
-                    textAlign: TextAlign.end,
-                    padding: 16,
-                    onTapFunc: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ForgotPasswordPage(),
-                        ),
-                      );
-                    },
+                  SizedBox(
+                    width: double.infinity,
+                    child: TapText(
+                      text1: null,
+                      text2: "Lupa Kata Sandi?",
+                      textAlign: TextAlign.end,
+                      padding: 16,
+                      onTapFunc: () {
+                        Navigator.pushNamed(context, forgotPasswordRoute);
+                      },
+                    ),
                   ),
 
                   //Error message for wrong email or password
@@ -116,6 +113,8 @@ class _LoginPageState extends State<LoginPage> {
 
                   //Login Button
                   OrangeButton(
+                    maximumSize: const Size(368, 48),
+                    minimumSize: const Size(328, 48),
                     contentText: "Masuk",
                     onPressedFunc: () {
                       if (_emailTextController.text != "admin" &&
@@ -176,12 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                     text2: "Daftar",
                     padding: 28,
                     onTapFunc: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const RegisterPage(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, registerRoute);
                     },
                   ),
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
@@ -91,6 +92,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 //register button
                 OrangeButton(
+                  maximumSize: const Size(328, 48),
+                  minimumSize: const Size(270, 48),
                   contentText: "Daftar",
                   onPressedFunc: () async {
                     await linkPopUp(
@@ -108,8 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   text2: "Masuk",
                   padding: 28,
                   onTapFunc: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const LoginPage()));
+                    Navigator.pushNamed(context, loginRoute);
                   },
                 )
               ],

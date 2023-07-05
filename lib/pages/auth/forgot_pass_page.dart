@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
@@ -65,6 +66,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                 //Reset  button
                 OrangeButton(
+                  maximumSize: const Size(328, 48),
+                  minimumSize: const Size(270, 48),
                   contentText: "Reset Kata Sandi",
                   onPressedFunc: () async {
                     await linkPopUp(
@@ -80,8 +83,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   height: 20,
                 ),
                 OutlinedButton(
-                  onPressed: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const LoginPage())),
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, loginRoute),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 10),

@@ -36,7 +36,9 @@ class _PasswordFormState extends State<PasswordForm> {
                 });
               },
               icon: Icon(
-                isObscure ? Icons.visibility : Icons.visibility_off,
+                isObscure
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
                 color: Colors.grey,
               ),
             ),
