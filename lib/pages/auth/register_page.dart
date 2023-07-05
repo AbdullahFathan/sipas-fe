@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
@@ -18,7 +17,10 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _motherNameTextController =
+      TextEditingController();
+  final TextEditingController _fatherNameTextController =
+      TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
 
@@ -26,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     _emailTextController.dispose();
     _passwordTextController.dispose();
-    _nameTextController.dispose();
+    _motherNameTextController.dispose();
     super.dispose();
   }
 
@@ -70,10 +72,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 20,
                 ),
 
-                //full name flied for user
+                //mother name flied for user
                 TextForm(
-                    textEditingController: _nameTextController,
-                    hintText: "Nama Lengkap",
+                    textEditingController: _motherNameTextController,
+                    hintText: "Nama Lengkap Ibu",
+                    subText: "Masukkan sesuai dengan nama anda di KTP"),
+                //father name flied for user
+                TextForm(
+                    textEditingController: _fatherNameTextController,
+                    hintText: "Nama Lengkap Ayah",
                     subText: "Masukkan sesuai dengan nama anda di KTP"),
 
                 //Email FLied for user

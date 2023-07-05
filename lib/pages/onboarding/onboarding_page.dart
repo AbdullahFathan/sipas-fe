@@ -3,7 +3,6 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/onboarding/constan_data.dart';
-import 'package:sipas/pages/widget/orange_button.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -126,7 +125,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 70),
           ],
         ),
       ),

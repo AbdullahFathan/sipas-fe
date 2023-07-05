@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
