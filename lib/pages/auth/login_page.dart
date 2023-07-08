@@ -7,6 +7,7 @@ import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
+import 'package:sipas/pages/widget/outline_custom_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -113,8 +114,8 @@ class _LoginPageState extends State<LoginPage> {
 
                   //Login Button
                   OrangeButton(
-                    maximumSize: const Size(368, 48),
-                    minimumSize: const Size(328, 48),
+                    maximumSize: const Size(double.infinity, 48),
+                    minimumSize: const Size(348, 48),
                     contentText: "Masuk",
                     onPressedFunc: () {
                       if (_emailTextController.text != "admin" &&
@@ -122,6 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           showEror = true;
                         });
+                      } else {
+                        Navigator.pushNamed(context, appPagesRoute);
                       }
                     },
                   ),
@@ -133,21 +136,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   //Sign in with Google
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 10,
-                      ),
-                      minimumSize: const Size(280, 48),
-                      maximumSize: const Size(328, 48),
-                      side: const BorderSide(
-                        width: 1,
-                        color: lightVioletColor,
-                      ),
-                    ),
-                    child: Row(
+                  CustomOutlineButton(
+                    minimumSize: const Size(280, 48),
+                    maximumSize: const Size(double.infinity, 48),
+                    childWidget: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(

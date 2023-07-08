@@ -6,6 +6,7 @@ import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
+import 'package:sipas/pages/widget/outline_custom_button.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -65,7 +66,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
                 //Reset  button
                 OrangeButton(
-                  maximumSize: const Size(328, 48),
+                  maximumSize: const Size(double.infinity, 48),
                   minimumSize: const Size(270, 48),
                   contentText: "Reset Kata Sandi",
                   onPressedFunc: () async {
@@ -81,23 +82,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                OutlinedButton(
-                  onPressed: () =>
+                CustomOutlineButton(
+                  minimumSize: const Size(280, 48),
+                  maximumSize: const Size(double.infinity, 48),
+                  contentText: "Kembali Ke Menu Masuk",
+                  onTapFunc: () =>
                       Navigator.pushReplacementNamed(context, loginRoute),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 10),
-                    minimumSize: const Size(280, 48),
-                    maximumSize: const Size(328, 48),
-                    side: const BorderSide(
-                      width: 1,
-                      color: lightVioletColor,
-                    ),
-                  ),
-                  child: Text(
-                    "Kembali Ke Menu Masuk",
-                    style: headline(sizeFont: 14, colorFont: lightVioletColor),
-                  ),
                 ),
               ],
             ),
