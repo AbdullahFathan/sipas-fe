@@ -62,7 +62,7 @@ class _AppPagesState extends State<AppPages> {
             child: SingleChildScrollView(
           child: Padding(
             padding:
-                const EdgeInsets.only(top: 62, left: 16, right: 16, bottom: 25),
+                const EdgeInsets.only(top: 42, left: 16, right: 16, bottom: 25),
             child: screens[_selectedIndex],
           ),
         )));

@@ -6,3 +6,5 @@ const String homePageRoute = "/homePage";
 const String foodRecipesRoute = "/resepMasak";
 const String articleRoute = "/artikel";
 const String profileRoute = "/profile";
+const String medicalFacilityRoute = "/medicalFacility";
+const String appPagesRoute = "/appPages";
