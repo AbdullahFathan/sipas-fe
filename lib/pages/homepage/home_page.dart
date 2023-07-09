@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
-import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/constants/our_service_const.dart';
 import 'package:sipas/pages/widget/custom_pop_up.dart';
 import 'package:sipas/pages/widget/orange_button.dart';

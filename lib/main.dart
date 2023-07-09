@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sipas/config/routes.dart';
+import 'package:sipas/pages/homepage/pantau_bayi_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,8 +13,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Sipas Gemastik",
       theme: ThemeData(fontFamily: "Roboto"),
-      initialRoute: "/",
-      onGenerateRoute: RouteGenerator.generateRoute,
+      // initialRoute: "/",
+      // onGenerateRoute: RouteGenerator.generateRoute,
+      home: PantauAnakPage(),
     );
   }
 }
