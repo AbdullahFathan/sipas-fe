@@ -19,3 +19,5 @@ const orangeColor = Color(0xffFF884C);
 const erorColor = Color(0xffE84C3D);
 
 const blueColor = Color(0xff5459E9);
+
+const greyWhite = Color(0xffEFEFEF);
