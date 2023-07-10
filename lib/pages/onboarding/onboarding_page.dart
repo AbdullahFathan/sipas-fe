@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/onboarding/constan_data.dart';
+import 'package:sipas/data/constants/onboarrding_cons.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);

@@ -8,3 +8,5 @@ const String articleRoute = "/artikel";
 const String profileRoute = "/profile";
 const String medicalFacilityRoute = "/medicalFacility";
 const String appPagesRoute = "/appPages";
+const String chatPagesRoute = "/chatPage";
+const String pantauAnakRoute = "/pantauAnakPage";

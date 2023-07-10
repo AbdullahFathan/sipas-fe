@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sipas/pages/homepage/chat_page.dart';
+import 'package:sipas/config/routes.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,9 +13,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Sipas Gemastik",
       theme: ThemeData(fontFamily: "Roboto"),
-      // initialRoute: "/",
-      // onGenerateRoute: RouteGenerator.generateRoute,
-      home: const ChatPages(),
+      initialRoute: "/",
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

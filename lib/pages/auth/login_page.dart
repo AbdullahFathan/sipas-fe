@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
@@ -42,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   // Show Logo Image
-                  SvgPicture.asset(
-                    "assets/images/sipas_logo.svg",
+                  Image.asset(
+                    "assets/images/sipas_logo.jpg",
                     width: 120,
                     height: 98,
                   ),
