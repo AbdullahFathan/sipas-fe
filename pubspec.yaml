@@ -7,16 +7,24 @@ environment:
   sdk: ">=3.0.5 <4.0.0"
 
 dependencies:
+  chat_bubbles: ^1.4.1
   flutter:
     sdk: flutter
   grouped_list: ^5.1.2
-  chat_bubbles: ^1.4.1
   intl: ^0.18.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.3.1
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/images/splash_screen.png"
+  android_12:
+    color: "#ffffff"
+    image: "assets/images/splash_screen.png"
 
 flutter:
   uses-material-design: true
