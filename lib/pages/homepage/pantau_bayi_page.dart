@@ -3,6 +3,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/pages/homepage/data_anak_tab.dart';
 import 'package:sipas/pages/homepage/pantau_kehamilan_tab.dart';
+import 'package:sipas/pages/widget/app_bar.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 
 class PantauAnakPage extends StatefulWidget {
@@ -38,22 +39,7 @@ class _PantauAnakPageState extends State<PantauAnakPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
-      appBar: AppBar(
-        backgroundColor: whiteColor,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: blackColor,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Pantau',
-          style: heading1(sizeFont: 16),
-        ),
-        centerTitle: true,
-      ),
+      appBar: customAppBar(context, 'Pantau'),
       body: Column(
         children: [
           Container(

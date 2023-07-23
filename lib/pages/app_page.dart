@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
-import 'package:sipas/food_recipes/food_recipes_page.dart';
+import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 import 'package:sipas/pages/articel/article_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
 import 'package:sipas/pages/profile/profile_page.dart';

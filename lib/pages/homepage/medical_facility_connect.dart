@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
+import 'package:sipas/pages/widget/outline_custom_button.dart';
 
 class MedicalFacilityConnect extends StatefulWidget {
   const MedicalFacilityConnect({super.key});
@@ -64,6 +66,16 @@ class _MedicalFacilityConnectState extends State<MedicalFacilityConnect> {
               minimumSize: const Size(348, 48),
               maximumSize: const Size(double.infinity, 48),
               onPressedFunc: () => print("has been tap"),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomOutlineButton(
+              minimumSize: const Size(348, 48),
+              maximumSize: const Size(double.infinity, 48),
+              contentText: 'Kembali Ke Beranda',
+              onTapFunc: () =>
+                  Navigator.pushReplacementNamed(context, appPagesRoute),
             )
           ],
         ),

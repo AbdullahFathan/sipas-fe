@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Sipas Gemastik",
       theme: ThemeData(fontFamily: "Roboto"),
-      initialRoute: "/",
+      initialRoute: "/appPages",
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

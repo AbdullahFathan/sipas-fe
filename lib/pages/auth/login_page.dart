@@ -113,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
 
                   //Login Button
                   OrangeButton(
+                    minimumSize: const Size(double.infinity, 48),
                     maximumSize: const Size(double.infinity, 48),
-                    minimumSize: const Size(348, 48),
                     contentText: "Masuk",
                     onPressedFunc: () {
                       if (_emailTextController.text != "admin" &&

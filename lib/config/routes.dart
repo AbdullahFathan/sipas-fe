@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/food_recipes/food_recipes_page.dart';
+import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 import 'package:sipas/pages/app_page.dart';
 import 'package:sipas/pages/articel/article_page.dart';
 import 'package:sipas/pages/auth/forgot_pass_page.dart';
@@ -8,6 +8,7 @@ import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/register_page.dart';
 import 'package:sipas/pages/eror_page.dart';
 import 'package:sipas/pages/homepage/chat_page.dart';
+import 'package:sipas/pages/homepage/grup_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
 import 'package:sipas/pages/homepage/medical_facility_connect.dart';
 import 'package:sipas/pages/homepage/pantau_bayi_page.dart';
@@ -42,6 +43,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ChatPages());
       case pantauAnakRoute:
         return MaterialPageRoute(builder: (_) => const PantauAnakPage());
+      case grupRoute:
+        return MaterialPageRoute(builder: (_) => const GrupPage());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());

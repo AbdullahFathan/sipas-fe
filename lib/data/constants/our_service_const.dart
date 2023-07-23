@@ -21,7 +21,7 @@ List<Map<String, dynamic>> servicesConst = [
     'image': 'assets/images/grid3.jpg',
     'color1': const Color(0xFF58B961),
     'color2': const Color.fromRGBO(88, 185, 97, 0.8),
-    'routeTo': "/has_no_route",
+    'routeTo': grupRoute,
   },
   {
     'title': 'Ajukan\nBantuan',

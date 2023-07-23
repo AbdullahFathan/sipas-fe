@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/constants/our_service_const.dart';
 import 'package:sipas/pages/widget/custom_pop_up.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
@@ -15,6 +16,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 1), () async {
+      await customPopUp(
+          context,
+          'assets/images/welcom.jpg',
+          'Selamat Datang di SIPAS!',
+          'Yuk, lihat tutorial cara gunain aplikasinya',
+          'Lihat Tutorial Sekarang',
+          'Nanti Saja');
+      await customPopUp(
+          context,
+          "assets/images/fill_data.jpg",
+          'Yuk, Isi Profil Buah Hatimu!',
+          'Dengan melengkapi profilnya, kamu bisa memantau tumbuh kembangnya agar terbebas dari stunting dengan aplikasi ini',
+          'Tambah Profil Anak',
+          'Nanti Saja');
+    });
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         "Selamat Datang, Hanifa",
@@ -37,15 +54,8 @@ class _HomePageState extends State<HomePage> {
                 contentText: "Ayo Hubungkan",
                 minimumSize: const Size(348, 48),
                 maximumSize: const Size(double.infinity, 48),
-                onPressedFunc: () async {
-                  await customPopUp(
-                      context,
-                      "assets/images/fill_data.jpg",
-                      'Yuk, Isi Profil Buah Hatimu!',
-                      'Dengan melengkapi profilnya, kamu bisa memantau tumbuh kembangnya agar terbebas dari stunting dengan aplikasi ini',
-                      'Tambah Profil Anak',
-                      'Nanti Saja');
-                })
+                onPressedFunc: () =>
+                    Navigator.pushNamed(context, medicalFacilityRoute))
           ],
         ),
       ),

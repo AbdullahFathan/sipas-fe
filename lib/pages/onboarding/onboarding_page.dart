@@ -113,7 +113,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: orangeColor,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 34, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),
                   )),
