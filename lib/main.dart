@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/routes.dart';
+import 'package:sipas/pages/homepage/periksa_hamil_page.dart';
 
 import 'pages/homepage/periksa_anak_page.dart';
 
@@ -19,9 +20,9 @@ class MainApp extends StatelessWidget {
         fontFamily: "Roboto",
         scaffoldBackgroundColor: whiteColor,
       ),
-      // initialRoute: "/appPages",
-      // onGenerateRoute: RouteGenerator.generateRoute,
-      home: PeriksaAnakPage(),
+      initialRoute: "/appPages",
+      onGenerateRoute: RouteGenerator.generateRoute,
+      // home: PeriksaHamilPage(),
     );
   }
 }

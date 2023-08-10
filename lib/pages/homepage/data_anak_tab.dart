@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/custom_date_picker.dart';
 import 'package:sipas/pages/widget/custom_dropdown.dart';
@@ -32,7 +33,7 @@ class _DataAnakTabState extends State<DataAnakTab> {
   @override
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.sizeOf(context).width;
-    return showProfileAnak(screenSize);
+    return showProfileAnak(screenSize, context);
   }
 }
 
@@ -106,6 +107,7 @@ Widget addDataAnak(
 
 Widget showProfileAnak(
   double screen,
+  BuildContext ctx,
 ) =>
     Padding(
       padding: const EdgeInsets.all(16),
@@ -132,6 +134,7 @@ Widget showProfileAnak(
           CustomOutlineButton(
             minimumSize: const Size(318, 48),
             maximumSize: const Size(double.infinity, 48),
+            onTapFunc: () => Navigator.pushNamed(ctx, periksaAnakRoute),
             childWidget: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

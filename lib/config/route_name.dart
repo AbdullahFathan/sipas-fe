@@ -11,3 +11,5 @@ const String appPagesRoute = "/appPages";
 const String chatPagesRoute = "/chatPage";
 const String pantauAnakRoute = "/pantauAnakPage";
 const String grupRoute = "/grupPage";
+const String periksaAnakRoute = "/periksaAnakRoute";
+const String periksaHamilRoute = "/periksaHamilRoute";

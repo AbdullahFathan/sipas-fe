@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/custom_date_picker.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
@@ -23,7 +24,7 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
 
   @override
   Widget build(BuildContext context) {
-    return showDataKehamilan();
+    return showDataKehamilan(context);
   }
 }
 
@@ -55,7 +56,10 @@ Widget addDataKehamilan(TextEditingController textEditingController) => Padding(
       ),
     );
 
-Widget showDataKehamilan() => Padding(
+Widget showDataKehamilan(
+  BuildContext ctx,
+) =>
+    Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,6 +84,7 @@ Widget showDataKehamilan() => Padding(
           CustomOutlineButton(
             minimumSize: const Size(318, 48),
             maximumSize: const Size(double.infinity, 48),
+            onTapFunc: () => Navigator.pushNamed(ctx, periksaHamilRoute),
             childWidget: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

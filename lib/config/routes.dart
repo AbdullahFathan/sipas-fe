@@ -12,6 +12,8 @@ import 'package:sipas/pages/homepage/grup_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
 import 'package:sipas/pages/homepage/medical_facility_connect.dart';
 import 'package:sipas/pages/homepage/pantau_bayi_page.dart';
+import 'package:sipas/pages/homepage/periksa_anak_page.dart';
+import 'package:sipas/pages/homepage/periksa_hamil_page.dart';
 import 'package:sipas/pages/onboarding/onboarding_page.dart';
 import 'package:sipas/pages/profile/profile_page.dart';
 
@@ -45,6 +47,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const PantauAnakPage());
       case grupRoute:
         return MaterialPageRoute(builder: (_) => const GrupPage());
+
+      case periksaAnakRoute:
+        return MaterialPageRoute(builder: (_) => const PeriksaAnakPage());
+      case periksaHamilRoute:
+        return MaterialPageRoute(builder: (_) => const PeriksaHamilPage());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());
