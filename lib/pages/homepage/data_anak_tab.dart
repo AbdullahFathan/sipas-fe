@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/custom_date_picker.dart';
 import 'package:sipas/pages/widget/custom_dropdown.dart';
+import 'package:sipas/pages/widget/orange_button.dart';
+import 'package:sipas/pages/widget/outline_custom_button.dart';
 
 class DataAnakTab extends StatefulWidget {
   const DataAnakTab({super.key});
@@ -28,7 +31,18 @@ class _DataAnakTabState extends State<DataAnakTab> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    final double screenSize = MediaQuery.sizeOf(context).width;
+    return showProfileAnak(screenSize);
+  }
+}
+
+Widget addDataAnak(
+  TextEditingController nameTextController,
+  TextEditingController weightTextController,
+  TextEditingController longTextController,
+  TextEditingController headBabyTextController,
+) =>
+    SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -44,7 +58,7 @@ class _DataAnakTabState extends State<DataAnakTab> {
 
             //name flied
             TextForm(
-                textEditingController: _nameTextController,
+                textEditingController: nameTextController,
                 hintText: 'Nama Anak',
                 subText: 'Masukkan nama anak Anda'),
 
@@ -70,24 +84,81 @@ class _DataAnakTabState extends State<DataAnakTab> {
 
             //berat badan anak
             TextForm(
-                textEditingController: _weightTextController,
+                textEditingController: weightTextController,
                 hintText: 'Berat Badan Lahir',
                 subText: 'Masukkan berat badan lahir anak dalam kg'),
 
             //panjang badan anak
             TextForm(
-                textEditingController: _longTextController,
+                textEditingController: longTextController,
                 hintText: 'Panjang Badan Lahir',
                 subText: 'Masukkan panjang badan lahir anak dalam cm'),
 
             //lingkar anak
             TextForm(
-                textEditingController: _headBabyTextController,
+                textEditingController: headBabyTextController,
                 hintText: 'Lingkar Kepala',
                 subText: 'Masukkan keliling lingkar kepala dalam cm')
           ],
         ),
       ),
     );
-  }
-}
+
+Widget showProfileAnak(
+  double screen,
+) =>
+    Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Text(
+              "Profil Anak Saya",
+              style: heading1(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 2,
+              bottom: 16,
+            ),
+            child: Text(
+              'Berikut adalah profil dari anak-anakmu, jika Anda punya anak lagi, Anda dapat menambahkan datanya dengan menekan tombol oren dibawah',
+              style: bodyMedium(sizeFont: 14, colorFont: greyColor),
+            ),
+          ),
+          CustomOutlineButton(
+            minimumSize: const Size(318, 48),
+            maximumSize: const Size(double.infinity, 48),
+            childWidget: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Arsya Ramadhan',
+                  style: headline(
+                    sizeFont: 14,
+                    colorFont: violetColor,
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  color: greyColor,
+                  size: 20,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          OrangeButton(
+            contentText: 'Tambah Data Anak Lagi',
+            minimumSize: const Size(328, 48),
+            maximumSize: Size(screen, 48),
+            onPressedFunc: () => print('has been tap'),
+          )
+        ],
+      ),
+    );
