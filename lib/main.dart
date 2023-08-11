@@ -22,10 +22,8 @@ class MainApp extends StatelessWidget {
         fontFamily: "Roboto",
         scaffoldBackgroundColor: whiteColor,
       ),
-      initialRoute: "/appPages",
+      initialRoute: "/",
       onGenerateRoute: RouteGenerator.generateRoute,
-
-      // home: ProfilePage(),
     );
   }
 }

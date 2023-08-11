@@ -28,6 +28,6 @@ List<Map<String, dynamic>> servicesConst = [
     'image': 'assets/images/grid4.jpg',
     'color1': const Color(0xFFEE924F),
     'color2': const Color.fromRGBO(238, 146, 79, 0.8),
-    'routeTo': "/has_no_route",
+    'routeTo': bantuanPage,
   },
 ];

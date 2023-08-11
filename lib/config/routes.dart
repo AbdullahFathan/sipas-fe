@@ -13,7 +13,9 @@ import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/register_page.dart';
 import 'package:sipas/pages/eror_page.dart';
 import 'package:sipas/pages/food_recipes/search_recipes_page.dart';
+import 'package:sipas/pages/homepage/bantuan_page.dart';
 import 'package:sipas/pages/homepage/chat_page.dart';
+import 'package:sipas/pages/homepage/form_ajuan_bantuan.dart';
 import 'package:sipas/pages/homepage/grup_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
 import 'package:sipas/pages/homepage/medical_facility_connect.dart';
@@ -96,6 +98,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const EditChildData());
       case editPrenacgyData:
         return MaterialPageRoute(builder: (_) => const EditPrenagcyData());
+      case bantuanPage:
+        return MaterialPageRoute(builder: (_) => const BantuanPage());
+      case formBantuanPage:
+        return MaterialPageRoute(builder: (_) => const FormAjuanBantuanPage());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());

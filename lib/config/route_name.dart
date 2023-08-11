@@ -26,3 +26,5 @@ const String detailPrenagcyUser = "/detailPrenagcyUser";
 const String detailChildUser = "/detailChildUser";
 const String editChildData = "/editChildData";
 const String editPrenacgyData = "/editPrenagcyData";
+const String bantuanPage = "/bantuanPage";
+const String formBantuanPage = "/formBantuanPage";
