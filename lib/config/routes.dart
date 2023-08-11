@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/pages/food_recipes/detail_recipes.dart';
 import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 import 'package:sipas/pages/app_page.dart';
 import 'package:sipas/pages/articel/article_page.dart';
@@ -7,6 +9,7 @@ import 'package:sipas/pages/auth/forgot_pass_page.dart';
 import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/register_page.dart';
 import 'package:sipas/pages/eror_page.dart';
+import 'package:sipas/pages/food_recipes/search_recipes_page.dart';
 import 'package:sipas/pages/homepage/chat_page.dart';
 import 'package:sipas/pages/homepage/grup_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
@@ -52,6 +55,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const PeriksaAnakPage());
       case periksaHamilRoute:
         return MaterialPageRoute(builder: (_) => const PeriksaHamilPage());
+      case searchRecipesRoute:
+        return MaterialPageRoute(builder: (_) => const SearchRecipesPage());
+      case detailRecipesRoute:
+        return MaterialPageRoute(builder: (_) => const DetailRecipes());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());

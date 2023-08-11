@@ -13,3 +13,5 @@ const String pantauAnakRoute = "/pantauAnakPage";
 const String grupRoute = "/grupPage";
 const String periksaAnakRoute = "/periksaAnakRoute";
 const String periksaHamilRoute = "/periksaHamilRoute";
+const String searchRecipesRoute = "/searchRecipesRoute";
+const String detailRecipesRoute = "/detailRecipesRoute";
