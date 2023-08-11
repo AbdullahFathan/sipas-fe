@@ -20,6 +20,7 @@ class _AppPagesState extends State<AppPages> {
     ArticlePage(),
     ProfilePage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,13 +59,6 @@ class _AppPagesState extends State<AppPages> {
             ),
           ],
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 42, left: 16, right: 16, bottom: 25),
-            child: screens[_selectedIndex],
-          ),
-        )));
+        body: screens[_selectedIndex]);
   }
 }

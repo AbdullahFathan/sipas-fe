@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/routes.dart';
-import 'package:sipas/pages/homepage/periksa_hamil_page.dart';
-
-import 'pages/homepage/periksa_anak_page.dart';
+import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -22,7 +20,8 @@ class MainApp extends StatelessWidget {
       ),
       initialRoute: "/appPages",
       onGenerateRoute: RouteGenerator.generateRoute,
-      // home: PeriksaHamilPage(),
+
+      // home: FoodRecipesPage(),
     );
   }
 }
