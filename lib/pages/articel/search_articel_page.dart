@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/dummy/articel.dart';
-import 'package:sipas/pages/articel/search_articel_page.dart';
 
-class ArticlePage extends StatefulWidget {
-  const ArticlePage({super.key});
+class SearchArticel extends StatefulWidget {
+  const SearchArticel({super.key});
 
   @override
-  State<ArticlePage> createState() => _ArticlePageState();
+  State<SearchArticel> createState() => _SearchArticelState();
 }
 
-class _ArticlePageState extends State<ArticlePage> {
+class _SearchArticelState extends State<SearchArticel> {
+  TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,49 +32,60 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () =>
-                        Navigator.pushNamed(context, searchArticelRoute),
-                    child: Container(
-                      padding:
-                          const EdgeInsets.only(left: 16, top: 8, bottom: 5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            width: 1,
-                            color: borderGreyColor,
-                          )),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.search,
-                            color: greyColor,
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            "Cari Resep disini",
-                            style:
-                                bodyMedium(sizeFont: 14, colorFont: greyColor),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      top: 28,
-                    ),
-                    child: Text(
-                      "Artikel Harian Untuk Orang Tua",
-                      style: heading1(sizeFont: 20),
-                    ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                size: 32,
+                              )),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          Expanded(
+                            child: TextField(
+                              controller: searchTextController,
+                              decoration: InputDecoration(
+                                hintText: "Cari Resep disini",
+                                prefixIcon: const Icon(
+                                  Icons.search,
+                                  color: greyColor,
+                                ),
+                                contentPadding: const EdgeInsets.only(
+                                    left: 16, top: 8, bottom: 8),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: borderGreyColor,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: borderGreyColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                  Text(
+                    "Berikut Artikel Terkait Pencarianmu",
+                    style: heading1(sizeFont: 20),
                   ),
                 ],
               ),
