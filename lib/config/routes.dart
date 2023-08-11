@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/food_recipes/detail_recipes.dart';
+import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/pages/articel/detail_articel.dart';
+import 'package:sipas/pages/articel/search_articel_page.dart';
+import 'package:sipas/pages/food_recipes/detail_recipes_page.dart';
 import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 import 'package:sipas/pages/app_page.dart';
 import 'package:sipas/pages/articel/article_page.dart';
@@ -18,7 +21,16 @@ import 'package:sipas/pages/homepage/pantau_bayi_page.dart';
 import 'package:sipas/pages/homepage/periksa_anak_page.dart';
 import 'package:sipas/pages/homepage/periksa_hamil_page.dart';
 import 'package:sipas/pages/onboarding/onboarding_page.dart';
+import 'package:sipas/pages/profile/about_us.dart';
+import 'package:sipas/pages/profile/data_user.dart';
+import 'package:sipas/pages/profile/detail_child_user.dart';
+import 'package:sipas/pages/profile/detail_prenagcy_user.dart';
+import 'package:sipas/pages/profile/edit_child_data.dart';
+import 'package:sipas/pages/profile/edit_prenagcy_data.dart';
+import 'package:sipas/pages/profile/near_faskes.dart';
 import 'package:sipas/pages/profile/profile_page.dart';
+import 'package:sipas/pages/profile/profile_user.dart';
+import 'package:sipas/pages/profile/saved_user.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -59,6 +71,31 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SearchRecipesPage());
       case detailRecipesRoute:
         return MaterialPageRoute(builder: (_) => const DetailRecipes());
+      case searchArticelRoute:
+        return MaterialPageRoute(builder: (_) => const SearchArticel());
+      case detailArticelRoute:
+        return MaterialPageRoute(
+            builder: (_) => DetailArticel(
+                  articel: settings.arguments as Articel,
+                ));
+      case profileUserRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileUser());
+      case dataUserRoute:
+        return MaterialPageRoute(builder: (_) => const DataUserPage());
+      case nearFaskesRoute:
+        return MaterialPageRoute(builder: (_) => const NearFaskesPage());
+      case savedUserRoute:
+        return MaterialPageRoute(builder: (_) => const SavedUser());
+      case aboutUsRoute:
+        return MaterialPageRoute(builder: (_) => const AboutUsPage());
+      case detailPrenagcyUser:
+        return MaterialPageRoute(builder: (_) => const DetailPrenagcyUser());
+      case detailChildUser:
+        return MaterialPageRoute(builder: (_) => const DetailChildUser());
+      case editChildData:
+        return MaterialPageRoute(builder: (_) => const EditChildData());
+      case editPrenacgyData:
+        return MaterialPageRoute(builder: (_) => const EditPrenagcyData());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());
