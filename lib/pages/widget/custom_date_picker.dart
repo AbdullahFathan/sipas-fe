@@ -7,10 +7,12 @@ import 'package:sipas/config/font_theme.dart';
 class CustomDatePicker extends StatefulWidget {
   final String title;
   final String subTitlel;
+  final Function(DateTime?) onDateSelected;
   const CustomDatePicker({
     Key? key,
     required this.title,
     required this.subTitlel,
+    required this.onDateSelected,
   }) : super(key: key);
 
   @override
@@ -49,6 +51,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       setState(() {
         _selectedDate = picked;
       });
+      widget.onDateSelected(picked);
     }
   }
 

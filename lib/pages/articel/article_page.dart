@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/dummy/articel.dart';
-import 'package:sipas/pages/articel/search_articel_page.dart';
 
 class ArticlePage extends StatefulWidget {
   const ArticlePage({super.key});
@@ -60,7 +58,7 @@ class _ArticlePageState extends State<ArticlePage> {
                             width: 12,
                           ),
                           Text(
-                            "Cari Resep disini",
+                            "Cari Artikel Disini",
                             style:
                                 bodyMedium(sizeFont: 14, colorFont: greyColor),
                           )
@@ -86,7 +84,7 @@ class _ArticlePageState extends State<ArticlePage> {
               (context, index) {
                 return GestureDetector(
                   onTap: () => Navigator.pushNamed(context, detailArticelRoute,
-                      arguments: dummyArticelData[0]),
+                      arguments: dummyArticelData[index]),
                   child: Container(
                     width: 200,
                     height: 85,
@@ -109,9 +107,9 @@ class _ArticlePageState extends State<ArticlePage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 15, bottom: 8, left: 10),
+                                    top: 15, bottom: 8, right: 14),
                                 child: Text(
-                                  dummyArticelData[0].title,
+                                  dummyArticelData[index].title,
                                   style: headline(sizeFont: 14),
                                   maxLines: 3, // Set maximum number of lines
                                   overflow: TextOverflow
@@ -121,10 +119,15 @@ class _ArticlePageState extends State<ArticlePage> {
                             ],
                           ),
                         ),
-                        Image.asset(
-                          dummyArticelData[0].image,
+                        Container(
                           width: 84,
                           height: 74,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Image.network(
+                            dummyArticelData[index].image,
+                            fit: BoxFit.cover,
+                          ),
                         )
                       ],
                     ),

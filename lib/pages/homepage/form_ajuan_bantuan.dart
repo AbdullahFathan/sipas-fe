@@ -14,7 +14,7 @@ class FormAjuanBantuanPage extends StatefulWidget {
 }
 
 class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
-  TextEditingController _judulTextController = TextEditingController();
+  final TextEditingController _judulTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +45,12 @@ class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
                   width: 1,
                 ),
               ),
-              child: Column(
+              child: const Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         labelText: 'Deskripsi Pengajuan',

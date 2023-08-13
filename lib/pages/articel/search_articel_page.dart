@@ -96,7 +96,7 @@ class _SearchArticelState extends State<SearchArticel> {
               (context, index) {
                 return GestureDetector(
                   onTap: () => Navigator.pushNamed(context, detailArticelRoute,
-                      arguments: dummyArticelData[0]),
+                      arguments: dummyArticelData[index]),
                   child: Container(
                     width: 200,
                     height: 85,
@@ -119,9 +119,9 @@ class _SearchArticelState extends State<SearchArticel> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 15, bottom: 8, left: 10),
+                                    top: 15, bottom: 8, right: 14),
                                 child: Text(
-                                  dummyArticelData[0].title,
+                                  dummyArticelData[index].title,
                                   style: headline(sizeFont: 14),
                                   maxLines: 3, // Set maximum number of lines
                                   overflow: TextOverflow
@@ -131,10 +131,15 @@ class _SearchArticelState extends State<SearchArticel> {
                             ],
                           ),
                         ),
-                        Image.asset(
-                          dummyArticelData[0].image,
+                        Container(
                           width: 84,
                           height: 74,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Image.network(
+                            dummyArticelData[index].image,
+                            fit: BoxFit.cover,
+                          ),
                         )
                       ],
                     ),

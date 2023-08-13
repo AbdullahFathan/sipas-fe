@@ -31,6 +31,29 @@ class _EditChildDataState extends State<EditChildData> {
     super.dispose();
   }
 
+  DateTime? _selectedDate;
+
+  void handlDateSelected(DateTime? date) {
+    setState(() {
+      _selectedDate = date;
+    });
+  }
+
+  String? _selectedChildGender;
+  String? _selectedChildCondition;
+
+  void _handleChildGenderSelected(String? value) {
+    setState(() {
+      _selectedChildGender = value;
+    });
+  }
+
+  void _handleChildConditionSelected(String? value) {
+    setState(() {
+      _selectedChildCondition = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,24 +80,26 @@ class _EditChildDataState extends State<EditChildData> {
                         hintText: 'Nama Anak',
                         subText: 'Masukkan nama anak Anda'),
 
-                    //child date birth
-                    const CustomDatePicker(
+                    CustomDatePicker(
                       title: 'Tanggal Lahir Anak',
                       subTitlel: 'Pilih tanggal lahir dari anak Anda',
+                      onDateSelected: handlDateSelected,
                     ),
 
                     //dropdown child gender
-                    const CustomDropDown(
-                      data: ["Laki-Laki", "Perempuan"],
+                    CustomDropDown(
+                      data: const ["Laki-Laki", "Perempuan"],
                       labelText: 'Laki-Laki',
                       subText: 'Pilih jenis kelamin dari anak Anda',
+                      onValueSelected: _handleChildGenderSelected,
                     ),
 
                     //kondisi lahir anak
-                    const CustomDropDown(
-                      data: ["Sehat", "Tidak Sehat"],
+                    CustomDropDown(
+                      data: const ["Sehat", "Prematur", "Terkena Virus"],
                       labelText: 'Kondisi Lahir',
                       subText: 'Pilih kondisi lahir dari anak Anda',
+                      onValueSelected: _handleChildConditionSelected,
                     ),
 
                     //berat badan anak

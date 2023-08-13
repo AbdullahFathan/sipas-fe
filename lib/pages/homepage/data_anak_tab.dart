@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/auth/widget/text_form.dart';
-import 'package:sipas/pages/widget/custom_date_picker.dart';
-import 'package:sipas/pages/widget/custom_dropdown.dart';
+import 'package:sipas/cubit/child/child_cubit.dart';
+import 'package:sipas/cubit/health/health_cubit.dart';
+import 'package:sipas/data/model/child_data.dart';
+import 'package:sipas/pages/widget/add_data_anak.dart';
+import 'package:sipas/pages/widget/connected_faskes_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
@@ -16,98 +19,69 @@ class DataAnakTab extends StatefulWidget {
 }
 
 class _DataAnakTabState extends State<DataAnakTab> {
-  final TextEditingController _nameTextController = TextEditingController();
-  final TextEditingController _weightTextController = TextEditingController();
-  final TextEditingController _longTextController = TextEditingController();
-  final TextEditingController _headBabyTextController = TextEditingController();
-
   @override
-  void dispose() {
-    _nameTextController.dispose();
-    _weightTextController.dispose();
-    _longTextController.dispose();
-    _headBabyTextController.dispose();
-    super.dispose();
+  void initState() {
+    context.read<ChildCubit>().hasChildData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.sizeOf(context).width;
-    return showProfileAnak(screenSize, context);
-  }
-}
-
-Widget addDataAnak(
-  TextEditingController nameTextController,
-  TextEditingController weightTextController,
-  TextEditingController longTextController,
-  TextEditingController headBabyTextController,
-) =>
-    SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(
-              "Tambahkan Data Kehamilan",
-              style: heading1(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: Image.asset("assets/images/hamil2.jpg"),
-            ),
-
-            //name flied
-            TextForm(
-                textEditingController: nameTextController,
-                hintText: 'Nama Anak',
-                subText: 'Masukkan nama anak Anda'),
-
-            //child date birth
-            const CustomDatePicker(
-              title: 'Tanggal Lahir Anak',
-              subTitlel: 'Pilih tanggal lahir dari anak Anda',
-            ),
-
-            //dropdown child gender
-            const CustomDropDown(
-              data: ["Laki-Laki", "Perempuan"],
-              labelText: 'Laki-Laki',
-              subText: 'Pilih jenis kelamin dari anak Anda',
-            ),
-
-            //kondisi lahir anak
-            const CustomDropDown(
-              data: ["Sehat", "Tidak Sehat"],
-              labelText: 'Kondisi Lahir',
-              subText: 'Pilih kondisi lahir dari anak Anda',
-            ),
-
-            //berat badan anak
-            TextForm(
-                textEditingController: weightTextController,
-                hintText: 'Berat Badan Lahir',
-                subText: 'Masukkan berat badan lahir anak dalam kg'),
-
-            //panjang badan anak
-            TextForm(
-                textEditingController: longTextController,
-                hintText: 'Panjang Badan Lahir',
-                subText: 'Masukkan panjang badan lahir anak dalam cm'),
-
-            //lingkar anak
-            TextForm(
-                textEditingController: headBabyTextController,
-                hintText: 'Lingkar Kepala',
-                subText: 'Masukkan keliling lingkar kepala dalam cm')
-          ],
-        ),
+    return Scaffold(
+      body: BlocBuilder<HealthCubit, HealthState>(
+        builder: (context, state) {
+          if (state is HasConnectedFakes) {
+            return BlocBuilder<ChildCubit, ChildState>(
+              builder: (context, state) {
+                if (state is HasChildData) {
+                  return showProfileAnak(screenSize, context, periksaAnakRoute);
+                } else if (state is AddChildDataSuccess) {
+                  context.read<ChildCubit>().hasChildData();
+                } else if (state is AddChildDataLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: orangeColor,
+                    ),
+                  );
+                }
+                return addDataChildUser();
+              },
+            );
+          }
+          return const ConnectedFaskesWidget();
+        },
       ),
     );
+  }
+
+  Widget addDataChildUser() => SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Text(
+                "Tambahkan Data Anak",
+                style: heading1(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: Image.asset("assets/images/hamil2.jpg"),
+              ),
+              const AddDataAnakWidget(),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      );
+}
 
 Widget showProfileAnak(
   double screen,
   BuildContext ctx,
+  String route,
 ) =>
     Padding(
       padding: const EdgeInsets.all(16),
@@ -131,36 +105,49 @@ Widget showProfileAnak(
               style: bodyMedium(sizeFont: 14, colorFont: greyColor),
             ),
           ),
-          CustomOutlineButton(
-            minimumSize: const Size(318, 48),
-            maximumSize: const Size(double.infinity, 48),
-            onTapFunc: () => Navigator.pushNamed(ctx, periksaAnakRoute),
-            childWidget: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Arsya Ramadhan',
-                  style: headline(
-                    sizeFont: 14,
-                    colorFont: violetColor,
+          Expanded(
+            child: ListView.builder(
+              itemCount: userChidlData.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: CustomOutlineButton(
+                    minimumSize: const Size(318, 48),
+                    maximumSize: const Size(double.infinity, 48),
+                    onTapFunc: () => Navigator.pushNamed(ctx, route),
+                    childWidget: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          userChidlData[index].name,
+                          style: headline(
+                            sizeFont: 14,
+                            colorFont: violetColor,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: greyColor,
+                          size: 20,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: greyColor,
-                  size: 20,
-                )
-              ],
+                );
+              },
             ),
           ),
           const SizedBox(
             height: 16,
           ),
-          OrangeButton(
-            contentText: 'Tambah Data Anak Lagi',
-            minimumSize: const Size(328, 48),
-            maximumSize: Size(screen, 48),
-            onPressedFunc: () => print('has been tap'),
+          SizedBox(
+            width: double.infinity,
+            child: OrangeButton(
+              contentText: 'Tambah Data Anak Lagi',
+              minimumSize: const Size(328, 48),
+              maximumSize: Size(screen, 48),
+              onPressedFunc: () => Navigator.pushNamed(ctx, addDataChild),
+            ),
           )
         ],
       ),

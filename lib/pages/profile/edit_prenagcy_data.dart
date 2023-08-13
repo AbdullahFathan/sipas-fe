@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
+
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/another_popup.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
@@ -19,6 +22,22 @@ class EditPrenagcyData extends StatefulWidget {
 class _EditPrenagcyDataState extends State<EditPrenagcyData> {
   final TextEditingController _nameTextController = TextEditingController();
 
+  String titleDatePicker = 'Hari Pertama Haid Terakhir';
+
+  DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    context.read<PregnancyCubit>().hasPrenangcyData();
+    super.initState();
+  }
+
+  void handlDateSelected(DateTime? date) {
+    setState(() {
+      _selectedDate = date;
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -28,84 +47,96 @@ class _EditPrenagcyDataState extends State<EditPrenagcyData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, 'Data Profil Kehamilan/Anak Saya'),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            Expanded(
+        resizeToAvoidBottomInset: false,
+        appBar: customAppBar(context, 'Data Profil Kehamilan/Anak Saya'),
+        body: BlocListener<PregnancyCubit, PregnancyState>(
+            listener: (context, state) {
+              if (state is HasPregnancyData) {
+                _nameTextController.text = state.name;
+                titleDatePicker = state.date;
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14),
-                    child: Text(
-                      "Edit Data Kehamilan",
-                      style: heading1(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: Text(
+                            "Edit Data Kehamilan",
+                            style: heading1(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 24),
+                          child: Image.asset("assets/images/hamil.jpg"),
+                        ),
+                        TextForm(
+                          textEditingController: _nameTextController,
+                          hintText: 'Nama Calon Bayi',
+                          subText: 'Masukkan nama calon bayi Anda',
+                        ),
+                        CustomDatePicker(
+                          subTitlel:
+                              'Pilih tanggal hari pertama dari haid terakhir Anda',
+                          title: titleDatePicker,
+                          onDateSelected: handlDateSelected,
+                        )
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: Image.asset("assets/images/hamil.jpg"),
-                  ),
-                  TextForm(
-                    textEditingController: _nameTextController,
-                    hintText: 'Nama Calon Bayi',
-                    subText: 'Masukkan nama calon bayi Anda',
-                  ),
-                  const CustomDatePicker(
-                    subTitlel:
-                        'Pilih tanggal hari pertama dari haid terakhir Anda',
-                    title: 'Hari Pertama Haid Terakhir',
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      children: [
+                        OrangeButton(
+                          contentText: "Simpan Perubahan",
+                          minimumSize: const Size(328, 48),
+                          maximumSize: const Size(double.infinity, 48),
+                          onPressedFunc: () async {
+                            context.read<PregnancyCubit>().addPrenagcyData(
+                                _nameTextController.text,
+                                _selectedDate.toString());
+                            await anotherPopUP(
+                                context,
+                                'Perubahan Tersimpan',
+                                'Perubahan profil data pada calon bayi Anda berhasil dilakukan dan telah tersimpan',
+                                [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, appPagesRoute);
+                                    },
+                                    child: Text(
+                                      "Oke",
+                                      style: headline(
+                                        colorFont: violetColor,
+                                        sizeFont: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ]);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomOutlineButton(
+                            minimumSize: const Size(328, 48),
+                            maximumSize: const Size(double.infinity, 48),
+                            contentText: 'Batalkan Perubahan',
+                            onTapFunc: () => Navigator.pop(context)),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  OrangeButton(
-                    contentText: "Simpan Perubahan",
-                    minimumSize: const Size(328, 48),
-                    maximumSize: const Size(double.infinity, 48),
-                    onPressedFunc: () async {
-                      await anotherPopUP(
-                          context,
-                          'Perubahan Tersimpan',
-                          'Perubahan profil data pada calon bayi Anda berhasil dilakukan dan telah tersimpan',
-                          [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                "Oke",
-                                style: headline(
-                                  colorFont: violetColor,
-                                  sizeFont: 14,
-                                ),
-                              ),
-                            ),
-                          ]);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  CustomOutlineButton(
-                      minimumSize: const Size(328, 48),
-                      maximumSize: const Size(double.infinity, 48),
-                      contentText: 'Batalkan Perubahan',
-                      onTapFunc: () => Navigator.pop(context)),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+            )));
   }
 }

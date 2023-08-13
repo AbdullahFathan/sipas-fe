@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/cubit/recipes/recipes_cubit.dart';
 import 'package:sipas/data/dummy/detail_recipes.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 
-class DetailRecipes extends StatelessWidget {
-  const DetailRecipes({super.key});
+class DetailRecipes extends StatefulWidget {
+  final DetailRecipesDummy recipes;
+  const DetailRecipes({
+    Key? key,
+    required this.recipes,
+  }) : super(key: key);
 
+  @override
+  State<DetailRecipes> createState() => _DetailRecipesState();
+}
+
+class _DetailRecipesState extends State<DetailRecipes> {
   @override
   Widget build(BuildContext context) {
     double screenSize = MediaQuery.sizeOf(context).width;
@@ -23,8 +35,8 @@ class DetailRecipes extends StatelessWidget {
                   SizedBox(
                     width: screenSize,
                     height: screenSize * 0.5,
-                    child: Image.asset(
-                      "assets/images/bubur2.jpg",
+                    child: Image.network(
+                      widget.recipes.image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -52,12 +64,28 @@ class DetailRecipes extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  dataBoonganResep.title,
+                                  widget.recipes.title,
                                   style: heading1(sizeFont: 20),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.bookmark),
+                                  onPressed: () {
+                                    if (widget.recipes.isBook) {
+                                      context
+                                          .read<RecipesCubit>()
+                                          .removeBookmark(widget.recipes);
+                                    } else {
+                                      context
+                                          .read<RecipesCubit>()
+                                          .addBookmark(widget.recipes);
+                                    }
+                                    setState(() {
+                                      widget.recipes.isBook =
+                                          !widget.recipes.isBook;
+                                    });
+                                  },
+                                  icon: widget.recipes.isBook
+                                      ? const Icon(Icons.bookmark)
+                                      : const Icon(Icons.bookmark_outline),
                                   color: const Color(0xff836077),
                                 )
                               ],
@@ -65,7 +93,7 @@ class DetailRecipes extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: Wrap(
-                                children: dataBoonganResep.typeRecipes
+                                children: widget.recipes.typeRecipes
                                     .map(
                                       (TypeRecipes item) => Padding(
                                         padding: const EdgeInsets.only(
@@ -105,7 +133,7 @@ class DetailRecipes extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 16),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: dataBoonganResep.foodMaterial
+                                children: widget.recipes.foodMaterial
                                     .map((String material) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 2),
@@ -132,7 +160,7 @@ class DetailRecipes extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 16),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: dataBoonganResep.makeFood
+                                children: widget.recipes.makeFood
                                     .map((String material) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 2),
@@ -159,7 +187,7 @@ class DetailRecipes extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 16),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: dataBoonganResep.foodNutrition
+                                children: widget.recipes.foodNutrition
                                     .map((String material) => Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 2),
@@ -188,7 +216,7 @@ class DetailRecipes extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 2),
                                   child: Text(
-                                    dataBoonganResep.maker,
+                                    widget.recipes.maker,
                                     style: bodyMedium(
                                         sizeFont: 14, colorFont: greyColor),
                                   ),

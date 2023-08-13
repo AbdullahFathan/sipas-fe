@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/dummy/detail_recipes.dart';
 import 'package:sipas/pages/articel/detail_articel.dart';
 import 'package:sipas/pages/articel/search_articel_page.dart';
 import 'package:sipas/pages/food_recipes/detail_recipes_page.dart';
@@ -13,6 +13,7 @@ import 'package:sipas/pages/auth/login_page.dart';
 import 'package:sipas/pages/auth/register_page.dart';
 import 'package:sipas/pages/eror_page.dart';
 import 'package:sipas/pages/food_recipes/search_recipes_page.dart';
+import 'package:sipas/pages/homepage/add_child_page.dart';
 import 'package:sipas/pages/homepage/bantuan_page.dart';
 import 'package:sipas/pages/homepage/chat_page.dart';
 import 'package:sipas/pages/homepage/form_ajuan_bantuan.dart';
@@ -70,9 +71,15 @@ class RouteGenerator {
       case periksaHamilRoute:
         return MaterialPageRoute(builder: (_) => const PeriksaHamilPage());
       case searchRecipesRoute:
-        return MaterialPageRoute(builder: (_) => const SearchRecipesPage());
+        return MaterialPageRoute(
+            builder: (_) => SearchRecipesPage(
+                  textTitle: settings.arguments as String,
+                ));
       case detailRecipesRoute:
-        return MaterialPageRoute(builder: (_) => const DetailRecipes());
+        return MaterialPageRoute(
+            builder: (_) => DetailRecipes(
+                  recipes: settings.arguments as DetailRecipesDummy,
+                ));
       case searchArticelRoute:
         return MaterialPageRoute(builder: (_) => const SearchArticel());
       case detailArticelRoute:
@@ -91,7 +98,10 @@ class RouteGenerator {
       case aboutUsRoute:
         return MaterialPageRoute(builder: (_) => const AboutUsPage());
       case detailPrenagcyUser:
-        return MaterialPageRoute(builder: (_) => const DetailPrenagcyUser());
+        return MaterialPageRoute(
+            builder: (_) => DetailPrenagcyUser(
+                  name: settings.arguments as String,
+                ));
       case detailChildUser:
         return MaterialPageRoute(builder: (_) => const DetailChildUser());
       case editChildData:
@@ -102,6 +112,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const BantuanPage());
       case formBantuanPage:
         return MaterialPageRoute(builder: (_) => const FormAjuanBantuanPage());
+      case addDataChild:
+        return MaterialPageRoute(builder: (_) => const AddChildPage());
 
       default:
         return MaterialPageRoute(builder: (_) => const ErorPage());

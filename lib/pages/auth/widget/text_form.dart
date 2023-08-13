@@ -21,6 +21,12 @@ class TextForm extends StatelessWidget {
       children: [
         TextFormField(
           controller: textEditingController,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Isi Form Dengan Benar';
+            }
+            return null;
+          },
           decoration: InputDecoration(
             hintText: hintText,
             contentPadding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),

@@ -7,11 +7,13 @@ class CustomDropDown extends StatefulWidget {
   final List<String> data;
   final String labelText;
   final String subText;
+  final Function(String?) onValueSelected;
   const CustomDropDown({
     Key? key,
     required this.data,
     required this.labelText,
     required this.subText,
+    required this.onValueSelected,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               setState(() {
                 _selectedValue = value;
               });
+              widget.onValueSelected(value);
             },
             items: widget.data.map((String item) {
               return DropdownMenuItem<String>(

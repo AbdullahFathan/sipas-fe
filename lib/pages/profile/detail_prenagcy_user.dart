@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/pages/widget/another_popup.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
 class DetailPrenagcyUser extends StatelessWidget {
-  const DetailPrenagcyUser({super.key});
+  final String name;
+
+  const DetailPrenagcyUser({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class DetailPrenagcyUser extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Text(
-                    "Nama: Hana Trisninda",
+                    "Nama: $name",
                     style: bodyMedium(sizeFont: 14),
                   ),
                 ),
@@ -84,6 +92,9 @@ class DetailPrenagcyUser extends StatelessWidget {
                             TextButton(
                               onPressed: () async {
                                 Navigator.pop(context);
+                                context
+                                    .read<PregnancyCubit>()
+                                    .removePrenangcyData();
                                 Future.delayed(const Duration(milliseconds: 2))
                                     .then((value) => anotherPopUP(
                                             context,
@@ -92,7 +103,10 @@ class DetailPrenagcyUser extends StatelessWidget {
                                             [
                                               TextButton(
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context,
+                                                          appPagesRoute);
                                                 },
                                                 child: Text(
                                                   "Oke",

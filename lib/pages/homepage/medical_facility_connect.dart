@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
@@ -51,21 +53,14 @@ class _MedicalFacilityConnectState extends State<MedicalFacilityConnect> {
                 textEditingController: _numberTextEditing,
                 hintText: 'Kode Unik',
                 subText: 'Pastikan kode unik yang Anda masukkan benar'),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, bottom: 16),
-              child: Text(
-                "Maaf, kode unik yang Anda masukkan tidak terdaftar",
-                style: bodyMedium(
-                  sizeFont: 12,
-                  colorFont: erorColor,
-                ),
-              ),
-            ),
             OrangeButton(
               contentText: 'Hubungkan Sekarang',
               minimumSize: const Size(348, 48),
               maximumSize: const Size(double.infinity, 48),
-              onPressedFunc: () => print("has been tap"),
+              onPressedFunc: () {
+                context.read<HealthCubit>().connedtedfakes();
+                Navigator.pushReplacementNamed(context, appPagesRoute);
+              },
             ),
             const SizedBox(
               height: 20,

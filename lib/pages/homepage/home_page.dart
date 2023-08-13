@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/data/constants/our_service_const.dart';
-import 'package:sipas/pages/widget/custom_pop_up.dart';
+
 import 'package:sipas/pages/widget/orange_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,23 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context.read<HealthCubit>().isConnextedFakes();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 10), () async {
-      await customPopUp(
-          context,
-          'assets/images/welcom.jpg',
-          'Selamat Datang di SIPAS!',
-          'Yuk, lihat tutorial cara gunain aplikasinya',
-          'Lihat Tutorial Sekarang',
-          'Nanti Saja');
-      await customPopUp(
-          context,
-          "assets/images/fill_data.jpg",
-          'Yuk, Isi Profil Buah Hatimu!',
-          'Dengan melengkapi profilnya, kamu bisa memantau tumbuh kembangnya agar terbebas dari stunting dengan aplikasi ini',
-          'Tambah Profil Anak',
-          'Nanti Saja');
-    });
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -45,27 +37,43 @@ class _HomePageState extends State<HomePage> {
               style: heading1(),
             ),
           ),
-          SizedBox(
-            child: Column(
-              children: [
-                Padding(
+          BlocBuilder<HealthCubit, HealthState>(
+            builder: (context, state) {
+              if (state is HasConnectedFakes) {
+                return Padding(
                   padding: const EdgeInsets.only(bottom: 16, top: 2),
                   child: Text(
-                    "Anda belum terhubung ke fasilitas kesehatan, tekan \"Hubungkan Sekarang\" untuk terhubung.",
+                    "Selamat! Anda telah berhasil terhubung dengan Puskesmas Lumut",
                     style: bodyMedium(
                       sizeFont: 14,
-                      colorFont: greyColor,
+                      colorFont: greenColor,
                     ),
                   ),
+                );
+              }
+              return SizedBox(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16, top: 2),
+                      child: Text(
+                        "Anda belum terhubung ke fasilitas kesehatan, tekan \"Hubungkan Sekarang\" untuk terhubung.",
+                        style: bodyMedium(
+                          sizeFont: 14,
+                          colorFont: greyColor,
+                        ),
+                      ),
+                    ),
+                    OrangeButton(
+                        contentText: "Ayo Hubungkan",
+                        minimumSize: const Size(348, 48),
+                        maximumSize: const Size(double.infinity, 48),
+                        onPressedFunc: () =>
+                            Navigator.pushNamed(context, medicalFacilityRoute))
+                  ],
                 ),
-                OrangeButton(
-                    contentText: "Ayo Hubungkan",
-                    minimumSize: const Size(348, 48),
-                    maximumSize: const Size(double.infinity, 48),
-                    onPressedFunc: () =>
-                        Navigator.pushNamed(context, medicalFacilityRoute))
-              ],
-            ),
+              );
+            },
           ),
           Padding(
             padding: const EdgeInsets.only(top: 36, bottom: 2),

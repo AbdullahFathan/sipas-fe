@@ -4,7 +4,6 @@ import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/pages/homepage/data_anak_tab.dart';
 import 'package:sipas/pages/homepage/pantau_kehamilan_tab.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
-import 'package:sipas/pages/widget/orange_button.dart';
 
 class PantauAnakPage extends StatefulWidget {
   const PantauAnakPage({Key? key}) : super(key: key);
@@ -38,6 +37,7 @@ class _PantauAnakPageState extends State<PantauAnakPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
       appBar: customAppBar(context, 'Pantau'),
       body: Column(
@@ -79,15 +79,6 @@ class _PantauAnakPageState extends State<PantauAnakPage>
               ],
             ),
           ),
-          OrangeButton(
-            contentText: "Simpan",
-            minimumSize: const Size(328, 48),
-            maximumSize: const Size(double.infinity, 48),
-            onPressedFunc: () => print("has been tap"),
-          ),
-          const SizedBox(
-            height: 15,
-          )
         ],
       ),
     );

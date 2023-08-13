@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/cubit/articel/articel_cubit.dart';
 import 'package:sipas/data/dummy/articel.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 
@@ -34,8 +36,8 @@ class _DetailArticelState extends State<DetailArticel> {
                   SizedBox(
                     width: screenSize,
                     height: screenSize * 0.5,
-                    child: Image.asset(
-                      "assets/images/baby.jpg",
+                    child: Image.network(
+                      widget.articel.image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -84,8 +86,24 @@ class _DetailArticelState extends State<DetailArticel> {
                                       ),
                                     ),
                                     IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.bookmark),
+                                      onPressed: () {
+                                        if (widget.articel.isBook) {
+                                          context
+                                              .read<ArticelCubit>()
+                                              .removeBookmark(widget.articel);
+                                        } else {
+                                          context
+                                              .read<ArticelCubit>()
+                                              .addBookmark(widget.articel);
+                                        }
+                                        setState(() {
+                                          widget.articel.isBook =
+                                              !widget.articel.isBook;
+                                        });
+                                      },
+                                      icon: widget.articel.isBook
+                                          ? const Icon(Icons.bookmark)
+                                          : const Icon(Icons.bookmark_outline),
                                       color: const Color(0xff836077),
                                     )
                                   ],

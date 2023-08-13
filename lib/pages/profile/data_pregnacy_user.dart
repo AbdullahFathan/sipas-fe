@@ -1,68 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:sipas/config/color_theme.dart';
-import 'package:sipas/config/font_theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/pages/widget/outline_custom_button.dart';
+import 'package:sipas/cubit/health/health_cubit.dart';
+import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
+import 'package:sipas/pages/homepage/pantau_kehamilan_tab.dart';
+import 'package:sipas/pages/widget/connected_faskes_widget.dart';
 
-class DataPregnacyUser extends StatelessWidget {
+class DataPregnacyUser extends StatefulWidget {
   const DataPregnacyUser({super.key});
+
+  @override
+  State<DataPregnacyUser> createState() => _DataPregnacyUserState();
+}
+
+class _DataPregnacyUserState extends State<DataPregnacyUser> {
+  @override
+  void initState() {
+    context.read<PregnancyCubit>().hasPrenangcyData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+      body: BlocBuilder<HealthCubit, HealthState>(
+        builder: (context, state) {
+          if (state is HasConnectedFakes) {
+            return SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 34),
-                    child: Text(
-                      "Profil Kehamilan Saya",
-                      style: heading1(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 2,
-                      bottom: 16,
-                    ),
-                    child: Text(
-                      'Berikut adalah profil dari calon bayimu',
-                      style: bodyMedium(sizeFont: 14, colorFont: greyColor),
-                    ),
-                  ),
-                  CustomOutlineButton(
-                    minimumSize: const Size(318, 48),
-                    maximumSize: const Size(double.infinity, 48),
-                    onTapFunc: () =>
-                        Navigator.pushNamed(context, detailPrenagcyUser),
-                    childWidget: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Hana Trisninda',
-                          style: headline(
-                            sizeFont: 14,
-                            colorFont: violetColor,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios_outlined,
-                          color: greyColor,
-                          size: 20,
-                        )
-                      ],
-                    ),
+                  BlocBuilder<PregnancyCubit, PregnancyState>(
+                    builder: (context, state) {
+                      if (state is HasPregnancyData) {
+                        return showDataKehamilan(
+                          context,
+                          state.name,
+                          state.date,
+                          detailPrenagcyUser,
+                        );
+                      }
+                      return const Center(child: Text("Tidak ada data"));
+                    },
                   )
                 ],
               ),
-            )
-          ],
-        ),
+            );
+          }
+          return const ConnectedFaskesWidget();
+        },
       ),
     );
   }
