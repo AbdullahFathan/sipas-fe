@@ -1,27 +1,55 @@
 import 'package:bloc/bloc.dart';
-import 'package:sipas/services/cahce_services.dart';
-import 'package:sipas/services/key_chace.dart';
+import 'package:sipas/data/model/user.dart';
+import 'package:sipas/services/auth_services.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
+  final AuthServices _authServices = AuthServices();
+
   void isHasLogin() async {
     try {
-      final response = await Cache.getData(userToken);
+      final response = await _authServices.getUserProfile();
 
-      response != null ? emit(Authenticated()) : emit(Unathenticated());
+      response ? emit(Authenticated()) : emit(Unathenticated());
     } catch (eror) {
       emit(AuthEror("There is eror : ${eror.toString()}"));
     }
   }
 
-  void loginServices() async {
+  void loginServices(String email, String password) async {
     try {
       emit(AuthLoading());
-      await Cache.writeData(key: userToken, value: 'sudah_login');
-      emit(AuthSucess());
+      var response = await _authServices.login(email, password);
+
+      if (response) {
+        emit(AuthSucess());
+        emit(AuthInitial());
+      } else {
+        emit(AuthEror("There is eror : response is false"));
+      }
+    } catch (eror) {
+      emit(AuthEror("There is eror : ${eror.toString()}"));
+    }
+  }
+
+  void registerServices(
+    String email,
+    String password,
+    String fatherName,
+    String motherName,
+  ) async {
+    try {
+      emit(AuthLoading());
+      var response =
+          await _authServices.register(email, password, fatherName, motherName);
+      if (response) {
+        emit(AuthSucess());
+      } else {
+        emit(AuthEror("There is eror : response is false"));
+      }
     } catch (eror) {
       emit(AuthEror("There is eror : ${eror.toString()}"));
     }
@@ -30,9 +58,8 @@ class AuthCubit extends Cubit<AuthState> {
   void logoutServices() async {
     try {
       emit(AuthLoading());
-      await Cache.deleteData(userToken);
-      await Cache.deleteData(alreadyConneted);
-      emit(AuthSucess());
+      bool response = await _authServices.logout();
+      if (response) emit(Unathenticated());
     } catch (eror) {
       emit(AuthEror("There is eror : ${eror.toString()}"));
     }

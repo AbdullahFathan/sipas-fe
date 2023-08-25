@@ -6,6 +6,7 @@ import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/auth/auth_cubit.dart';
 
 import 'package:sipas/data/constants/profile_cons.dart';
+import 'package:sipas/data/model/user.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,12 +17,18 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
+  void initState() {
+    context.read<AuthCubit>().isHasLogin();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenSize = MediaQuery.sizeOf(context).width;
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is AuthSucess) {
+          if (state is Unathenticated) {
             Navigator.pushReplacementNamed(context, loginRoute);
           }
         },
@@ -48,14 +55,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hanifa Sutarno",
+                            currUser.data.namaIbu,
                             style: heading1(sizeFont: 20),
                           ),
                           const SizedBox(
                             height: 4,
                           ),
                           Text(
-                            "Hanifa@gmail.com",
+                            currUser.data.email,
                             style:
                                 bodyMedium(sizeFont: 14, colorFont: greyColor),
                           )

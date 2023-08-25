@@ -5,6 +5,7 @@ import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/data/constants/our_service_const.dart';
+import 'package:sipas/data/model/user.dart';
 
 import 'package:sipas/pages/widget/orange_button.dart';
 
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(top: 42),
             child: Text(
-              "Selamat Datang, Hanifa",
+              "Selamat Datang, ${currUser.data.namaIbu}",
               style: heading1(),
             ),
           ),

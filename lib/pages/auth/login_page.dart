@@ -133,13 +133,15 @@ class _LoginPageState extends State<LoginPage> {
                         maximumSize: const Size(double.infinity, 48),
                         contentText: "Masuk",
                         onPressedFunc: () {
-                          if (_emailTextController.text != "admin" &&
-                              _passwordTextController.text != "admin") {
+                          if (_emailTextController.text.isEmpty &&
+                              _passwordTextController.text.isEmpty) {
                             setState(() {
                               showEror = true;
                             });
                           } else {
-                            context.read<AuthCubit>().loginServices();
+                            context.read<AuthCubit>().loginServices(
+                                _emailTextController.text,
+                                _passwordTextController.text);
                           }
                         },
                       ),
