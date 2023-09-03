@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:sipas/data/constants/base.dart';
 import 'package:sipas/data/model/user.dart';
 import 'package:sipas/services/cahce_services.dart';
 import 'package:sipas/services/key_chace.dart';
 
 class AuthServices {
   final Dio _dio = Dio();
-  final String BASE_URL = "https://sipas-8de63a58cb4f.herokuapp.com";
 
   Future<bool> getUserProfile() async {
     try {

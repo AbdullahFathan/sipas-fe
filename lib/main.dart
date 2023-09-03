@@ -9,7 +9,6 @@ import 'package:sipas/cubit/child/child_cubit.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/cubit/recipes/recipes_cubit.dart';
-import 'package:sipas/data/model/user.dart';
 import 'package:sipas/pages/app_page.dart';
 import 'package:sipas/pages/onboarding/onboarding_page.dart';
 

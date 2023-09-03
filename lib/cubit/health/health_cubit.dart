@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sipas/data/model/user.dart';
-import 'package:sipas/services/cahce_services.dart';
-import 'package:sipas/services/key_chace.dart';
+import 'package:sipas/services/health_services.dart';
 
 part 'health_state.dart';
 
 class HealthCubit extends Cubit<HealthState> {
   HealthCubit() : super(HealthInitial());
+
+  final HealthServices _healthServices = HealthServices();
 
   void isConnextedFakes() async {
     currUser.data.isConnectedWithFaskes
@@ -15,10 +16,15 @@ class HealthCubit extends Cubit<HealthState> {
         : emit(DontConnectedFakes());
   }
 
-  void connedtedfakes() async {
+  void connedtedfakes(String code) async {
     try {
-      await Cache.writeData(key: alreadyConneted, value: "Sudah");
-      emit(HasConnectedFakes());
+      print("masuk cubit");
+      emit(LoadingConnectedFakes());
+      var response = await _healthServices.connedtedfakes(code);
+      response
+          ? emit(HasConnectedFakes())
+          : emit(ErorConnectedFakes("Fail to connect"));
+      print("keluar cubit ");
     } catch (eror) {
       emit(ErorConnectedFakes(eror.toString()));
     }

@@ -4,7 +4,6 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/auth/auth_cubit.dart';
-import 'package:sipas/pages/auth/widget/link_popup.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';

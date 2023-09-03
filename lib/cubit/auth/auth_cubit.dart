@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:sipas/data/model/user.dart';
 import 'package:sipas/services/auth_services.dart';
 
 part 'auth_state.dart';
