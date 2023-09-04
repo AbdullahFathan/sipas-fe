@@ -24,7 +24,7 @@ class _EditPrenagcyDataState extends State<EditPrenagcyData> {
 
   String titleDatePicker = 'Hari Pertama Haid Terakhir';
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _EditPrenagcyDataState extends State<EditPrenagcyData> {
     super.initState();
   }
 
-  void handlDateSelected(DateTime? date) {
+  void handlDateSelected(String? date) {
     setState(() {
       _selectedDate = date;
     });
@@ -52,8 +52,10 @@ class _EditPrenagcyDataState extends State<EditPrenagcyData> {
         body: BlocListener<PregnancyCubit, PregnancyState>(
             listener: (context, state) {
               if (state is HasPregnancyData) {
-                _nameTextController.text = state.name;
-                titleDatePicker = state.date;
+                _nameTextController.text =
+                    state.prenangcyData.namaCalonBayi.toString();
+                titleDatePicker =
+                    state.prenangcyData.tanggalPertamaHaid.toString();
               }
             },
             child: Padding(

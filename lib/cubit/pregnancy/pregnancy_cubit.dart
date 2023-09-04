@@ -1,49 +1,59 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:sipas/services/cahce_services.dart';
-import 'package:sipas/services/key_chace.dart';
+import 'package:sipas/data/model/prenangcy.dart';
+import 'package:sipas/services/prenangcy_services.dart';
 
 part 'pregnancy_state.dart';
 
 class PregnancyCubit extends Cubit<PregnancyState> {
   PregnancyCubit() : super(PregnancyInitial());
 
-  void hasPrenangcyData() async {
-    var response = await Cache.getData(prenagcyData);
+  final PregnancyServices _pregnancyServices = PregnancyServices();
 
-    response != null
-        ? emit(HasPregnancyData(response['name'], response['date']))
-        : emit(DontPregnancyData());
+  void hasPrenangcyData() async {
+    emit(LoadingPregnancyData());
+    try {
+      var response = await _pregnancyServices.getPrenangcyData();
+
+      if (response!.id != null) {
+        emit(HasPregnancyData(prenangcyData: response));
+      } else {
+        emit(DontPregnancyData());
+      }
+    } catch (eror) {
+      emit(ErorPregnancyData(
+          "there is eror in hasPrenangcyData() ${eror.toString()}"));
+    }
   }
 
   void addPrenagcyData(String name, String date) async {
     try {
       emit(AddPregnancyDataLoading());
-      await Cache.writeData(key: prenagcyData, value: {
-        'name': name,
-        'date': date,
-      });
-      emit(AddPregnancyDataSuccess());
+      var response = await _pregnancyServices.addPrenagcyData(name, date);
+      if (response != null) {
+        emit(AddPregnancyDataSuccess(response));
+      } else {
+        emit(AddPregnancyDataEror("Add data prenangcy fail"));
+      }
     } catch (eror) {
       emit(AddPregnancyDataEror(eror.toString()));
     }
   }
 
-  void updatePrenangcyData(String name, String date) async {
-    try {
-      emit(AddPregnancyDataLoading());
-      await Cache.writeData(key: prenagcyData, value: {
-        'name': name,
-        'date': date,
-      });
-      emit(AddPregnancyDataSuccess());
-    } catch (eror) {
-      emit(AddPregnancyDataEror(eror.toString()));
-    }
-  }
+  // void updatePrenangcyData(String name, String date) async {
+  //   try {
+  //     emit(AddPregnancyDataLoading());
+  //     await Cache.writeData(key: prenagcyData, value: {
+  //       'name': name,
+  //       'date': date,
+  //     });
+  //     emit(AddPregnancyDataSuccess());
+  //   } catch (eror) {
+  //     emit(AddPregnancyDataEror(eror.toString()));
+  //   }
+  // }
 
-  void removePrenangcyData() async {
-    await Cache.deleteData(prenagcyData);
-    emit(AddPregnancyDataSuccess());
-  }
+  // void removePrenangcyData() async {
+  //   await Cache.deleteData(prenagcyData);
+  //   emit(AddPregnancyDataSuccess());
+  // }
 }

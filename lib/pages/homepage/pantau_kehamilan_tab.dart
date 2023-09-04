@@ -20,18 +20,12 @@ class PantauKehamilanTab extends StatefulWidget {
 
 class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
   final TextEditingController _nameTextController = TextEditingController();
-  DateTime? _selectedHaidDate;
+  String? _selectedHaidDate;
 
-  void _handleHaidDateSelected(DateTime? date) {
+  void _handleHaidDateSelected(String? date) {
     setState(() {
       _selectedHaidDate = date;
     });
-  }
-
-  @override
-  void initState() {
-    context.read<PregnancyCubit>().hasPrenangcyData();
-    super.initState();
   }
 
   @override
@@ -47,15 +41,29 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
         if (state is HasConnectedFakes) {
           return BlocBuilder<PregnancyCubit, PregnancyState>(
             builder: (context, state) {
+              if (state is AddPregnancyDataEror) {
+                print(state.text);
+              }
               if (state is DontPregnancyData) {
                 return addDataKehamilan(_nameTextController);
               } else if (state is HasPregnancyData) {
                 return showDataKehamilan(
-                    context, state.name, state.date, periksaHamilRoute);
+                    context,
+                    state.prenangcyData.namaCalonBayi,
+                    state.prenangcyData.tanggalPertamaHaid.toString(),
+                    periksaHamilRoute);
               } else if (state is AddPregnancyDataSuccess) {
-                context.read<PregnancyCubit>().hasPrenangcyData();
+                return showDataKehamilan(
+                    context,
+                    state.dataPrenangcy.namaCalonBayi,
+                    state.dataPrenangcy.tanggalPertamaHaid.toString(),
+                    periksaHamilRoute);
               }
-              return Container();
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: orangeColor,
+                ),
+              );
             },
           );
         }
@@ -90,17 +98,21 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
               title: 'Hari Pertama Haid Terakhir',
               onDateSelected: _handleHaidDateSelected,
             ),
-            OrangeButton(
-              contentText: "Simpan",
-              minimumSize: const Size(328, 48),
-              maximumSize: const Size(double.infinity, 48),
-              onPressedFunc: () {
-                if (textEditingController.text.isNotEmpty &&
-                    _selectedHaidDate != null) {
-                  context.read<PregnancyCubit>().addPrenagcyData(
-                      textEditingController.text, _selectedHaidDate.toString());
-                }
-              },
+            SizedBox(
+              width: double.infinity,
+              child: OrangeButton(
+                contentText: "Simpan",
+                minimumSize: const Size(328, 48),
+                maximumSize: const Size(double.infinity, 48),
+                onPressedFunc: () {
+                  if (textEditingController.text.isNotEmpty &&
+                      _selectedHaidDate != null) {
+                    context.read<PregnancyCubit>().addPrenagcyData(
+                        textEditingController.text,
+                        _selectedHaidDate.toString());
+                  }
+                },
+              ),
             ),
             const SizedBox(
               height: 15,
@@ -112,7 +124,7 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
 
 Widget showDataKehamilan(
   BuildContext ctx,
-  String name,
+  String? name,
   String date,
   String route,
 ) =>
@@ -146,7 +158,7 @@ Widget showDataKehamilan(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  name,
+                  "$name",
                   style: headline(
                     sizeFont: 14,
                     colorFont: violetColor,

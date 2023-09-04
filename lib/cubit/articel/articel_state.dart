@@ -1,6 +1,5 @@
 part of 'articel_cubit.dart';
 
-@immutable
 sealed class ArticelState {}
 
 final class ArticelInitial extends ArticelState {}

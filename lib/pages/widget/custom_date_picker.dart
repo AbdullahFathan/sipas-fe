@@ -7,7 +7,7 @@ import 'package:sipas/config/font_theme.dart';
 class CustomDatePicker extends StatefulWidget {
   final String title;
   final String subTitlel;
-  final Function(DateTime?) onDateSelected;
+  final Function(String?) onDateSelected;
   const CustomDatePicker({
     Key? key,
     required this.title,
@@ -51,7 +51,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       setState(() {
         _selectedDate = picked;
       });
-      widget.onDateSelected(picked);
+      widget.onDateSelected(
+          "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year.toString().padLeft(4, '0')}");
     }
   }
 
@@ -77,12 +78,17 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    _selectedDate == null
-                        ? widget.title
-                        : DateFormat('dd MMMM yyyy').format(_selectedDate!),
-                    style: bodyMedium(sizeFont: 16, colorFont: greyColor),
-                  ),
+                  _selectedDate == null
+                      ? Text(
+                          widget.title,
+                          style: bodyMedium(sizeFont: 16, colorFont: greyColor),
+                        )
+                      : Text(
+                          DateFormat('dd MMMM yyyy').format(_selectedDate!),
+                          style: bodyMedium(
+                            sizeFont: 16,
+                          ),
+                        ),
                   const Icon(Icons.calendar_today),
                 ],
               ),

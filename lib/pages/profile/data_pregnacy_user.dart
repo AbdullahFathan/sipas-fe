@@ -33,11 +33,10 @@ class _DataPregnacyUserState extends State<DataPregnacyUser> {
                     builder: (context, state) {
                       if (state is HasPregnancyData) {
                         return showDataKehamilan(
-                          context,
-                          state.name,
-                          state.date,
-                          detailPrenagcyUser,
-                        );
+                            context,
+                            state.prenangcyData.namaCalonBayi,
+                            state.prenangcyData.tanggalPertamaHaid.toString(),
+                            periksaHamilRoute);
                       }
                       return const Center(child: Text("Tidak ada data"));
                     },

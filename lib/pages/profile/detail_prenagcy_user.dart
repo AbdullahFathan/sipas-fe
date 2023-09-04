@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/pages/widget/another_popup.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
@@ -92,9 +90,9 @@ class DetailPrenagcyUser extends StatelessWidget {
                             TextButton(
                               onPressed: () async {
                                 Navigator.pop(context);
-                                context
-                                    .read<PregnancyCubit>()
-                                    .removePrenangcyData();
+                                // context
+                                //     .read<PregnancyCubit>()
+                                //     .removePrenangcyData();
                                 Future.delayed(const Duration(milliseconds: 2))
                                     .then((value) => anotherPopUP(
                                             context,

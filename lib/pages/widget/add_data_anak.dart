@@ -20,9 +20,9 @@ class _AddDataAnakWidgetState extends State<AddDataAnakWidget> {
   final TextEditingController longTextController = TextEditingController();
   final TextEditingController headBabyTextController = TextEditingController();
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
-  void handlDateSelected(DateTime? date) {
+  void handlDateSelected(String? date) {
     setState(() {
       _selectedDate = date;
     });

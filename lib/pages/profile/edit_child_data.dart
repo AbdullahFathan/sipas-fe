@@ -31,9 +31,9 @@ class _EditChildDataState extends State<EditChildData> {
     super.dispose();
   }
 
-  DateTime? _selectedDate;
+  String? _selectedDate;
 
-  void handlDateSelected(DateTime? date) {
+  void handlDateSelected(String? date) {
     setState(() {
       _selectedDate = date;
     });
