@@ -1,6 +1,5 @@
 part of 'child_cubit.dart';
 
-@immutable
 sealed class ChildState {}
 
 final class ChildInitial extends ChildState {}

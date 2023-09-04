@@ -1,6 +1,5 @@
 part of 'health_cubit.dart';
 
-@immutable
 sealed class HealthState {}
 
 final class HealthInitial extends HealthState {}
