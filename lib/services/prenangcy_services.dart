@@ -8,7 +8,7 @@ class PregnancyServices {
 
   Future<Prenangcy?> getPrenangcyData() async {
     Prenangcy prenangcyData = Prenangcy();
-    print(currUser.jwtToken);
+
     try {
       var responnse = await _dio.get("$BASE_URL/kehamilan/${currUser.data.id}",
           options: Options(

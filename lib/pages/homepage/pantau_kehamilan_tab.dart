@@ -39,11 +39,14 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
     return BlocBuilder<HealthCubit, HealthState>(
       builder: (context, state) {
         if (state is HasConnectedFakes) {
-          return BlocBuilder<PregnancyCubit, PregnancyState>(
-            builder: (context, state) {
+          return BlocConsumer<PregnancyCubit, PregnancyState>(
+            listener: (context, state) {
               if (state is AddPregnancyDataEror) {
-                print(state.text);
+                Navigator.pushReplacementNamed(context, "/eror",
+                    arguments: state.text);
               }
+            },
+            builder: (context, state) {
               if (state is DontPregnancyData) {
                 return addDataKehamilan(_nameTextController);
               } else if (state is HasPregnancyData) {

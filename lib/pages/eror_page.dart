@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 
 class ErorPage extends StatelessWidget {
-  const ErorPage({super.key});
+  const ErorPage({
+    Key? key,
+    this.erorText,
+  }) : super(key: key);
+  final String? erorText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,14 @@ class ErorPage extends StatelessWidget {
 
             //Message Eror
             Text(
-              "Halaman yang ingin dituju belum bisa diakses saat ini",
+              "Maaf sepertinya layanan saat ini tidak dapat diakses, coba sesaat lagi",
+              style: bodyMedium(),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Dev eror : ${erorText ?? "tidak ada eror dev"}",
               style: bodyMedium(),
             ),
             const SizedBox(

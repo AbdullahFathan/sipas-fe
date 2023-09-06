@@ -116,7 +116,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddChildPage());
 
       default:
-        return MaterialPageRoute(builder: (_) => const ErorPage());
+        return MaterialPageRoute(
+            builder: (_) => ErorPage(
+                  erorText: settings.arguments as String,
+                ));
     }
   }
 }
