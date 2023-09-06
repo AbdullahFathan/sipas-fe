@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/cubit/child/child_cubit.dart';
 import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/pages/homepage/data_anak_tab.dart';
 import 'package:sipas/pages/homepage/pantau_kehamilan_tab.dart';
@@ -24,6 +25,7 @@ class _PantauAnakPageState extends State<PantauAnakPage>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabChange);
     context.read<PregnancyCubit>().hasPrenangcyData();
+    context.read<ChildCubit>().hasChildData();
   }
 
   @override

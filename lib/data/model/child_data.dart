@@ -1,47 +1,41 @@
 class Child {
-  String name;
-  String birthDate;
-  String gender;
-  String birthCondition;
-  String weightChild;
-  String longChild;
-  String headCircuChild;
+  String namaAnak;
+  String tanggalLahirAnak;
+  String jenisKelamin;
+  String kondisiLahir;
+  double beratBadanLahir;
+  double panjangBadanLahir;
+  double lingkarKepala;
 
   Child({
-    required this.name,
-    required this.birthDate,
-    required this.gender,
-    required this.birthCondition,
-    required this.weightChild,
-    required this.longChild,
-    required this.headCircuChild,
+    required this.namaAnak,
+    required this.tanggalLahirAnak,
+    required this.jenisKelamin,
+    required this.kondisiLahir,
+    required this.beratBadanLahir,
+    required this.panjangBadanLahir,
+    required this.lingkarKepala,
   });
 
-  // Factory constructor to create a Child object from a JSON map
-  factory Child.fromJson(Map<String, dynamic> json) {
-    return Child(
-      name: json['name'],
-      birthDate: json['birthDate'],
-      gender: json['gender'],
-      birthCondition: json['birthCondition'],
-      weightChild: json['weightChild'],
-      longChild: json['longChild'],
-      headCircuChild: json['headCircuChild'],
-    );
-  }
+  factory Child.fromJson(Map<String, dynamic> json) => Child(
+        namaAnak: json["namaAnak"],
+        tanggalLahirAnak: json["tanggalLahirAnak"],
+        jenisKelamin: json["jenisKelamin"],
+        kondisiLahir: json["kondisiLahir"],
+        beratBadanLahir: json["beratBadanLahir"],
+        panjangBadanLahir: json["panjangBadanLahir"],
+        lingkarKepala: json["lingkarKepala"],
+      );
 
-  // Convert the Child object to a JSON map
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'birthDate': birthDate,
-      'gender': gender,
-      'birthCondition': birthCondition,
-      'weightChild': weightChild,
-      'longChild': longChild,
-      'headCircuChild': headCircuChild,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "namaAnak": namaAnak,
+        "tanggalLahirAnak": tanggalLahirAnak,
+        "jenisKelamin": jenisKelamin,
+        "kondisiLahir": kondisiLahir,
+        "beratBadanLahir": beratBadanLahir,
+        "panjangBadanLahir": panjangBadanLahir,
+        "lingkarKepala": lingkarKepala,
+      };
 }
 
 List<Child> userChidlData = [];

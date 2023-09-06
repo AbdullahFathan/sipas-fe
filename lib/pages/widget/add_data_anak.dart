@@ -84,15 +84,15 @@ class _AddDataAnakWidgetState extends State<AddDataAnakWidget> {
 
         //dropdown child gender
         CustomDropDown(
-          data: const ["Laki-Laki", "Perempuan"],
-          labelText: 'Laki-Laki',
+          data: const ["laki", "perempuan"],
+          labelText: 'laki',
           subText: 'Pilih jenis kelamin dari anak Anda',
           onValueSelected: _handleChildGenderSelected,
         ),
 
         //kondisi lahir anak
         CustomDropDown(
-          data: const ["Sehat", "Prematur", "Terkena Virus"],
+          data: const ['prematur', 'sehat', 'lainnya'],
           labelText: 'Kondisi Lahir',
           subText: 'Pilih kondisi lahir dari anak Anda',
           onValueSelected: _handleChildConditionSelected,
@@ -115,22 +115,27 @@ class _AddDataAnakWidgetState extends State<AddDataAnakWidget> {
             textEditingController: headBabyTextController,
             hintText: 'Lingkar Kepala',
             subText: 'Masukkan keliling lingkar kepala dalam cm'),
-        OrangeButton(
-          contentText: "Simpan",
-          minimumSize: const Size(328, 48),
-          maximumSize: const Size(double.infinity, 48),
-          onPressedFunc: () {
-            if (isNotEmptyForm()) {
-              context.read<ChildCubit>().addChildUserData(Child(
-                  name: nameTextController.text,
-                  birthDate: _selectedDate.toString(),
-                  gender: _selectedChildGender!,
-                  birthCondition: _selectedChildCondition!,
-                  weightChild: weightTextController.text,
-                  longChild: longTextController.text,
-                  headCircuChild: headBabyTextController.text));
-            }
-          },
+        SizedBox(
+          width: double.infinity,
+          child: OrangeButton(
+            contentText: "Simpan",
+            minimumSize: const Size(328, 48),
+            maximumSize: const Size(double.infinity, 48),
+            onPressedFunc: () {
+              if (isNotEmptyForm()) {
+                Child data = Child(
+                    namaAnak: nameTextController.text,
+                    tanggalLahirAnak: _selectedDate!,
+                    jenisKelamin: _selectedChildGender!,
+                    kondisiLahir: _selectedChildCondition!,
+                    beratBadanLahir: double.parse(weightTextController.text),
+                    panjangBadanLahir: double.parse(longTextController.text),
+                    lingkarKepala: double.parse(headBabyTextController.text));
+
+                context.read<ChildCubit>().addChildUserData(data);
+              }
+            },
+          ),
         ),
         const SizedBox(
           height: 15,

@@ -29,11 +29,12 @@ class _DataChildUserState extends State<DataChildUser> {
           return BlocBuilder<ChildCubit, ChildState>(
             builder: (context, state) {
               if (state is HasChildData) {
-                return showProfileAnak(
-                  screenSize,
-                  context,
-                  detailChildUser,
-                );
+                return Container();
+                // return showProfileAnak(
+                //   screenSize,
+                //   context,
+                //   detailChildUser,
+                // );
               }
               return const Center(
                 child: Text("Tidak ada Data"),

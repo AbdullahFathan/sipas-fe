@@ -20,25 +20,27 @@ class DataAnakTab extends StatefulWidget {
 
 class _DataAnakTabState extends State<DataAnakTab> {
   @override
-  void initState() {
-    context.read<ChildCubit>().hasChildData();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final double screenSize = MediaQuery.sizeOf(context).width;
     return Scaffold(
       body: BlocBuilder<HealthCubit, HealthState>(
         builder: (context, state) {
           if (state is HasConnectedFakes) {
-            return BlocBuilder<ChildCubit, ChildState>(
+            return BlocConsumer<ChildCubit, ChildState>(
+              listener: (context, state) {
+                if (state is ErorChildData) {
+                  Navigator.pushReplacementNamed(context, "/eror",
+                      arguments: state.text);
+                }
+              },
               builder: (context, state) {
                 if (state is HasChildData) {
-                  return showProfileAnak(screenSize, context, periksaAnakRoute);
+                  return showProfileAnak(
+                      screenSize, context, periksaAnakRoute, state.childData);
                 } else if (state is AddChildDataSuccess) {
                   context.read<ChildCubit>().hasChildData();
-                } else if (state is AddChildDataLoading) {
+                } else if (state is AddChildDataLoading ||
+                    state is LoadingChildData) {
                   return const Center(
                     child: CircularProgressIndicator(
                       color: orangeColor,
@@ -82,6 +84,7 @@ Widget showProfileAnak(
   double screen,
   BuildContext ctx,
   String route,
+  List<Child?> data,
 ) =>
     Padding(
       padding: const EdgeInsets.all(16),
@@ -107,7 +110,7 @@ Widget showProfileAnak(
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: userChidlData.length,
+              itemCount: data.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -119,7 +122,7 @@ Widget showProfileAnak(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          userChidlData[index].name,
+                          data[index]!.namaAnak,
                           style: headline(
                             sizeFont: 14,
                             colorFont: violetColor,
