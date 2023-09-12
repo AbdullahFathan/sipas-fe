@@ -7,6 +7,7 @@ import 'package:sipas/cubit/auth/auth_cubit.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -43,11 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: orangeColor,
-              ),
-            );
+            return const LoadingWidget();
           }
           return SafeArea(
             child: Padding(

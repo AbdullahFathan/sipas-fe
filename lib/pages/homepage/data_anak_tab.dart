@@ -8,6 +8,7 @@ import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/data/model/child_data.dart';
 import 'package:sipas/pages/widget/add_data_anak.dart';
 import 'package:sipas/pages/widget/connected_faskes_widget.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
@@ -41,11 +42,7 @@ class _DataAnakTabState extends State<DataAnakTab> {
                   context.read<ChildCubit>().hasChildData();
                 } else if (state is AddChildDataLoading ||
                     state is LoadingChildData) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: orangeColor,
-                    ),
-                  );
+                  return const LoadingWidget();
                 }
                 return addDataChildUser();
               },

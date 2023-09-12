@@ -5,6 +5,7 @@ import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
@@ -34,11 +35,7 @@ class _MedicalFacilityConnectState extends State<MedicalFacilityConnect> {
         },
         builder: (context, state) {
           if (state is LoadingConnectedFakes) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: orangeColor,
-              ),
-            );
+            return const LoadingWidget();
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -7,6 +7,7 @@ import 'package:sipas/cubit/auth/auth_cubit.dart';
 
 import 'package:sipas/data/constants/profile_cons.dart';
 import 'package:sipas/data/model/user.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -34,11 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         builder: (context, state) {
           if (state is AuthLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: orangeColor,
-              ),
-            );
+            return const LoadingWidget();
           }
           return SingleChildScrollView(
             child: Column(

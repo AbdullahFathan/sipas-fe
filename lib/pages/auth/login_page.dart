@@ -7,6 +7,7 @@ import 'package:sipas/cubit/auth/auth_cubit.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
@@ -41,11 +42,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           builder: (context, state) {
             if (state is AuthLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: orangeColor,
-                ),
-              );
+              return const LoadingWidget();
             }
             return SingleChildScrollView(
               child: Padding(

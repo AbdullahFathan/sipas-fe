@@ -8,6 +8,7 @@ import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/connected_faskes_widget.dart';
 import 'package:sipas/pages/widget/custom_date_picker.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
 
@@ -62,11 +63,7 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
                     state.dataPrenangcy.tanggalPertamaHaid.toString(),
                     periksaHamilRoute);
               }
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: orangeColor,
-                ),
-              );
+              return LoadingWidget();
             },
           );
         }
