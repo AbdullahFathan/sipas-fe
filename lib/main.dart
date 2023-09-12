@@ -7,6 +7,7 @@ import 'package:sipas/cubit/articel/articel_cubit.dart';
 import 'package:sipas/cubit/auth/auth_cubit.dart';
 import 'package:sipas/cubit/child/child_cubit.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
+import 'package:sipas/cubit/help/help_cubit.dart';
 import 'package:sipas/cubit/pregnancy/pregnancy_cubit.dart';
 import 'package:sipas/cubit/recipes/recipes_cubit.dart';
 import 'package:sipas/pages/app_page.dart';
@@ -42,6 +43,9 @@ class MainApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => RecipesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => HelpCubit(),
           )
         ],
         child: MaterialApp(

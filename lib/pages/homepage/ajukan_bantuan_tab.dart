@@ -31,11 +31,15 @@ class AjukanBantuanTab extends StatelessWidget {
               ),
             ),
           ),
-          OrangeButton(
-            contentText: 'Ajukan Bantuan',
-            minimumSize: const Size(328, 48),
-            maximumSize: const Size(double.infinity, 48),
-            onPressedFunc: () => Navigator.pushNamed(context, formBantuanPage),
+          SizedBox(
+            width: double.infinity,
+            child: OrangeButton(
+              contentText: 'Ajukan Bantuan',
+              minimumSize: const Size(328, 48),
+              maximumSize: const Size(double.infinity, 48),
+              onPressedFunc: () =>
+                  Navigator.pushNamed(context, formBantuanPage),
+            ),
           )
         ],
       ),

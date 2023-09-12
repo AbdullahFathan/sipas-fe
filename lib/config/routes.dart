@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/data/dummy/articel.dart';
 import 'package:sipas/data/dummy/detail_recipes.dart';
+import 'package:sipas/data/model/help.dart';
 import 'package:sipas/pages/articel/detail_articel.dart';
 import 'package:sipas/pages/articel/search_articel_page.dart';
 import 'package:sipas/pages/food_recipes/detail_recipes_page.dart';
@@ -16,6 +17,7 @@ import 'package:sipas/pages/food_recipes/search_recipes_page.dart';
 import 'package:sipas/pages/homepage/add_child_page.dart';
 import 'package:sipas/pages/homepage/bantuan_page.dart';
 import 'package:sipas/pages/homepage/chat_page.dart';
+import 'package:sipas/pages/homepage/detail_bantuan.dart';
 import 'package:sipas/pages/homepage/form_ajuan_bantuan.dart';
 import 'package:sipas/pages/homepage/grup_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
@@ -114,6 +116,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const FormAjuanBantuanPage());
       case addDataChild:
         return MaterialPageRoute(builder: (_) => const AddChildPage());
+      case detailBantuan:
+        return MaterialPageRoute(
+            builder: (_) => DetailBantuanPage(
+                  helpSubmit: settings.arguments as HelpSubmit,
+                ));
 
       default:
         return MaterialPageRoute(

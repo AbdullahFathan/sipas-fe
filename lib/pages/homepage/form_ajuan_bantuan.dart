@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/cubit/help/help_cubit.dart';
+import 'package:sipas/data/model/help.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 import 'package:sipas/pages/widget/orange_button.dart';
 import 'package:sipas/pages/widget/outline_custom_button.dart';
+
+import '../../config/route_name.dart';
+import '../widget/loading_widget.dart';
 
 class FormAjuanBantuanPage extends StatefulWidget {
   const FormAjuanBantuanPage({super.key});
@@ -15,94 +21,125 @@ class FormAjuanBantuanPage extends StatefulWidget {
 
 class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
   final TextEditingController _judulTextController = TextEditingController();
+  final TextEditingController _descriptionTextController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context, 'Ajukan'),
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24, top: 8),
-              child: Text(
-                'Lengkapi Form Pengajuan',
-                style: heading1(),
-              ),
-            ),
-            TextForm(
-                textEditingController: _judulTextController,
-                hintText: 'Judul Pengajuan',
-                subText: 'Masukkan judul dari pengajuan bantuan Anda'),
-            Container(
-              height: 300,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: borderGreyColor,
-                  width: 1,
-                ),
-              ),
-              child: const Column(
-                children: [
-                  SizedBox(
-                    height: 10,
+      body: BlocConsumer<HelpCubit, HelpState>(
+        listener: (context, state) {
+          print("State saat ini adalah $state");
+          if (state is AddHelpEror) {
+            Navigator.pushNamed(context, "/eror", arguments: state.text);
+          } else if (state is AddHelpSuccess) {
+            Navigator.pushNamed(context, bantuanPage);
+          }
+        },
+        builder: (context, state) {
+          if (state is AddHelpLoading) {
+            return const LoadingWidget();
+          }
+          return SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24, top: 8),
+                  child: Text(
+                    'Lengkapi Form Pengajuan',
+                    style: heading1(),
                   ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Deskripsi Pengajuan',
-                      ),
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      expands: true,
+                ),
+                TextForm(
+                    textEditingController: _judulTextController,
+                    hintText: 'Judul Pengajuan',
+                    subText: 'Masukkan judul dari pengajuan bantuan Anda'),
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: borderGreyColor,
+                      width: 1,
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Masukkan deskripsi dari pengajuan bantuan Anda",
-              style: bodyMedium(
-                sizeFont: 14,
-                colorFont: greyColor,
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  OrangeButton(
-                    contentText: "Simpan Perubahan",
-                    minimumSize: const Size(328, 48),
-                    maximumSize: const Size(double.infinity, 48),
-                    onPressedFunc: () => Navigator.pop(context),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: _descriptionTextController,
+                          decoration: const InputDecoration(
+                            contentPadding:
+                                EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                            hintText: 'Deskripsi Pengajuan',
+                          ),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          expands: true,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Masukkan deskripsi dari pengajuan bantuan Anda",
+                  style: bodyMedium(
+                    sizeFont: 14,
+                    colorFont: greyColor,
                   ),
-                  CustomOutlineButton(
-                      minimumSize: const Size(328, 48),
-                      maximumSize: const Size(double.infinity, 48),
-                      contentText: 'Batalkan Perubahan',
-                      onTapFunc: () => Navigator.pop(context)),
-                  const SizedBox(
-                    height: 10,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: OrangeButton(
+                            contentText: "Simpan Perubahan",
+                            minimumSize: const Size(328, 48),
+                            maximumSize: const Size(double.infinity, 48),
+                            onPressedFunc: () =>
+                                context.read<HelpCubit>().addHelpData(
+                                      HelpSubmit(
+                                          _judulTextController.text,
+                                          _descriptionTextController.text,
+                                          StatusHelpType.process),
+                                    )),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomOutlineButton(
+                            minimumSize: const Size(328, 48),
+                            maximumSize: const Size(double.infinity, 48),
+                            contentText: 'Batalkan Perubahan',
+                            onTapFunc: () => Navigator.pop(context)),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      )),
+          ));
+        },
+      ),
     );
   }
 }
