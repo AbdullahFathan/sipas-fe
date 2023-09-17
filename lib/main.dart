@@ -7,6 +7,7 @@ import 'package:sipas/cubit/articel/articel_cubit.dart';
 
 import 'package:sipas/cubit/auth/auth_cubit.dart';
 import 'package:sipas/cubit/child/child_cubit.dart';
+import 'package:sipas/cubit/grup/grup_cubit.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/cubit/help/help_cubit.dart';
 import 'package:sipas/cubit/message/message_cubit.dart';
@@ -52,6 +53,9 @@ class MainApp extends StatelessWidget {
           BlocProvider(
             create: (context) => MessageCubit(),
           ),
+          BlocProvider(
+            create: (context) => GrupCubit(),
+          )
         ],
         child: MaterialApp(
           title: "Sipas Gemastik",

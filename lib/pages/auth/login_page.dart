@@ -38,6 +38,10 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state is AuthSucess) {
               Navigator.pushReplacementNamed(context, appPagesRoute);
+            } else if (state is AuthEror) {
+              setState(() {
+                showEror = true;
+              });
             }
           },
           builder: (context, state) {
