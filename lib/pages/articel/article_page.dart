@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/articel/articel_cubit.dart';
 import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/pages/widget/card_articel.dart';
+
+import 'package:sipas/pages/widget/loading_widget.dart';
 
 class ArticlePage extends StatefulWidget {
   const ArticlePage({super.key});
@@ -79,63 +84,29 @@ class _ArticlePageState extends State<ArticlePage> {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, detailArticelRoute,
-                      arguments: dummyArticelData[index]),
-                  child: Container(
-                    width: 200,
-                    height: 85,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: borderGreyColor,
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 15, bottom: 8, right: 14),
-                                child: Text(
-                                  dummyArticelData[index].title,
-                                  style: headline(sizeFont: 14),
-                                  maxLines: 3, // Set maximum number of lines
-                                  overflow: TextOverflow
-                                      .ellipsis, // Handle overflow with ellipsis
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 84,
-                          height: 74,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Image.network(
-                            dummyArticelData[index].image,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+          BlocConsumer<ArticelCubit, ArticelState>(
+            listener: (context, state) {
+              if (state is FetchArticelEror) {
+                Navigator.pushNamed(context, "/eror", arguments: state.text);
+              }
+            },
+            builder: (context, state) {
+              if (state is FetchArticelLoading) {
+                return const SliverToBoxAdapter(child: LoadingWidget());
+              } else if (state is FetchArticelNoData) {
+                return const Center(
+                  child: Text("Tidak ada data artikel dari puskesmas "),
                 );
-              },
-              childCount: 6,
-            ),
+              }
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return CardArticel(singleAricel: listDataArticel[index]);
+                  },
+                  childCount: listDataArticel.length,
+                ),
+              );
+            },
           ),
         ],
       ),

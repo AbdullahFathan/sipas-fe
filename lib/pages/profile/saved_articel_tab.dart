@@ -4,6 +4,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/articel/articel_cubit.dart';
+
 import 'package:sipas/data/dummy/articel.dart';
 
 class SavedArticelTab extends StatefulWidget {
@@ -14,13 +15,14 @@ class SavedArticelTab extends StatefulWidget {
 }
 
 class _SavedArticelTabState extends State<SavedArticelTab> {
+  TextEditingController searchTextController = TextEditingController();
+
   @override
   void initState() {
     context.read<ArticelCubit>().readArticelBook();
     super.initState();
   }
 
-  TextEditingController searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocListener<ArticelCubit, ArticelState>(
@@ -100,7 +102,7 @@ class _SavedArticelTabState extends State<SavedArticelTab> {
                                           left: 5,
                                           right: 15),
                                       child: Text(
-                                        favoritArticel[index].title,
+                                        favoritArticel[index].judulArtikel,
                                         style: headline(sizeFont: 14),
                                         maxLines:
                                             3, // Set maximum number of lines
@@ -112,7 +114,7 @@ class _SavedArticelTabState extends State<SavedArticelTab> {
                                 ),
                               ),
                               Image.network(
-                                favoritArticel[index].image,
+                                favoritArticel[index].linkGambar,
                                 width: 84,
                                 height: 74,
                               )

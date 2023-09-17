@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/services/articel_services.dart';
 import 'package:sipas/services/cahce_services.dart';
 import 'package:sipas/services/key_chace.dart';
 
@@ -8,16 +10,19 @@ part 'articel_state.dart';
 class ArticelCubit extends Cubit<ArticelState> {
   ArticelCubit() : super(ArticelInitial());
 
+  final ArticelServices _articelServices = ArticelServices();
+
   void readArticelBook() async {
+    emit(ReadArticelBookLoading());
     try {
       var response = await Cache.getData(articelData);
-      if (response != null) {
+      if (response != null && (response as List).isNotEmpty) {
         for (var item in response) {
           Articel dataJson = Articel.fromJson(item);
 
           bool exists = favoritArticel.any((existingData) {
-            return existingData.title == dataJson.title &&
-                existingData.date == dataJson.date;
+            return existingData.judulArtikel == dataJson.judulArtikel &&
+                existingData.updatedAt == dataJson.updatedAt;
           });
 
           if (!exists) {
@@ -65,5 +70,37 @@ class ArticelCubit extends Cubit<ArticelState> {
     } catch (eror) {
       emit(AddArticelBookEror(eror.toString()));
     }
+  }
+
+  void getListArticle() async {
+    emit(FetchArticelLoading());
+    try {
+      await _articelServices.fetcListArticel();
+
+      listDataArticel.isNotEmpty
+          ? emit(FetchArticelSucces())
+          : emit(FetchArticelNoData());
+    } catch (eror) {
+      emit(FetchArticelEror("eror at getListArticle: ${eror.toString()} "));
+    }
+  }
+
+  void searchArticel(String titleArticel) async {
+    emit(SearchArticelLoading());
+    try {
+      var response = await _articelServices.searchByTitle(titleArticel);
+
+      response.isNotEmpty
+          ? emit(SearchArticelSuccess(response))
+          : emit(SearchArticelNoData());
+    } catch (eror) {
+      emit(SearchArticelEror(
+          "There is eror searchArticel : ${eror.toString()}"));
+    }
+  }
+
+  void fetchDataArticel() {
+    readArticelBook();
+    getListArticle();
   }
 }

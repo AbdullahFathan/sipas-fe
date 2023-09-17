@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+
 import 'package:sipas/cubit/articel/articel_cubit.dart';
+
 import 'package:sipas/data/dummy/articel.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 
@@ -37,7 +39,7 @@ class _DetailArticelState extends State<DetailArticel> {
                     width: screenSize,
                     height: screenSize * 0.5,
                     child: Image.network(
-                      widget.articel.image,
+                      widget.articel.linkGambar,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -74,7 +76,7 @@ class _DetailArticelState extends State<DetailArticel> {
                                             padding: const EdgeInsets.only(
                                                 top: 15, bottom: 8),
                                             child: Text(
-                                              widget.articel.title,
+                                              widget.articel.judulArtikel,
                                               style: heading1(sizeFont: 20),
                                               maxLines:
                                                   3, // Set maximum number of lines
@@ -87,7 +89,7 @@ class _DetailArticelState extends State<DetailArticel> {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        if (widget.articel.isBook) {
+                                        if (widget.articel.isFavorit) {
                                           context
                                               .read<ArticelCubit>()
                                               .removeBookmark(widget.articel);
@@ -97,11 +99,11 @@ class _DetailArticelState extends State<DetailArticel> {
                                               .addBookmark(widget.articel);
                                         }
                                         setState(() {
-                                          widget.articel.isBook =
-                                              !widget.articel.isBook;
+                                          widget.articel.isFavorit =
+                                              !widget.articel.isFavorit;
                                         });
                                       },
-                                      icon: widget.articel.isBook
+                                      icon: widget.articel.isFavorit
                                           ? const Icon(Icons.bookmark)
                                           : const Icon(Icons.bookmark_outline),
                                       color: const Color(0xff836077),
@@ -115,11 +117,21 @@ class _DetailArticelState extends State<DetailArticel> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        // Padding(
+                                        //   padding: const EdgeInsets.symmetric(
+                                        //       vertical: 2),
+                                        //   child: Text(
+                                        //     'Ditulis oleh: ${widget.articel.}',
+                                        //     style: bodyMedium(
+                                        //         sizeFont: 14,
+                                        //         colorFont: greyColor),
+                                        //   ),
+                                        // ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 2),
                                           child: Text(
-                                            'Ditulis oleh: ${widget.articel.creator}',
+                                            'Ditinjau oleh:  ${widget.articel.peninjau}',
                                             style: bodyMedium(
                                                 sizeFont: 14,
                                                 colorFont: greyColor),
@@ -129,17 +141,7 @@ class _DetailArticelState extends State<DetailArticel> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 2),
                                           child: Text(
-                                            'Ditinjau oleh:  ${widget.articel.editor}',
-                                            style: bodyMedium(
-                                                sizeFont: 14,
-                                                colorFont: greyColor),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 2),
-                                          child: Text(
-                                            widget.articel.date,
+                                            widget.articel.updatedAt,
                                             style: bodyMedium(
                                                 sizeFont: 14,
                                                 colorFont: greyColor),
@@ -151,7 +153,7 @@ class _DetailArticelState extends State<DetailArticel> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Text(
-                                    widget.articel.content,
+                                    widget.articel.isiText,
                                     style: bodyMedium(
                                       sizeFont: 14,
                                       colorFont: blackColor,

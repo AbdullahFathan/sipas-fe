@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipas/config/color_theme.dart';
+import 'package:sipas/cubit/articel/articel_cubit.dart';
+
 import 'package:sipas/pages/food_recipes/food_recipes_page.dart';
 import 'package:sipas/pages/articel/article_page.dart';
 import 'package:sipas/pages/homepage/home_page.dart';
@@ -13,6 +16,12 @@ class AppPages extends StatefulWidget {
 }
 
 class _AppPagesState extends State<AppPages> {
+  @override
+  void initState() {
+    context.read<ArticelCubit>().fetchDataArticel();
+    super.initState();
+  }
+
   int _selectedIndex = 0;
   List<Widget> screens = const [
     HomePage(),
