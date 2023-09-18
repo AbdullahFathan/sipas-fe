@@ -16,11 +16,19 @@ class ChatPages extends StatefulWidget {
 }
 
 class _ChatPagesState extends State<ChatPages> {
-  bool isLoading = false;
+  final TextEditingController _messageEditingController =
+      TextEditingController();
+  bool isLoading = true;
   @override
   void initState() {
     context.read<MessageCubit>().getMessage();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _messageEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,15 +63,6 @@ class _ChatPagesState extends State<ChatPages> {
               listener: (context, state) {
                 if (state is GetMessageEror) {
                   Navigator.pushNamed(context, "/eror", arguments: state.text);
-                } else if (state is GetMessageLoading ||
-                    state is PostMessageLoading) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                } else {
-                  setState(() {
-                    isLoading = false;
-                  });
                 }
               },
               builder: (context, state) {
@@ -74,6 +73,9 @@ class _ChatPagesState extends State<ChatPages> {
                 } else if (state is PostMessageSucces) {
                   Message lasItem = listMessage.last;
                   lasItem.message = state.text;
+                } else if (state is PostMessageEror) {
+                  Message lasItem = listMessage.last;
+                  lasItem.message = "Layanan Sedang down, Coba sesasat lagi";
                 }
                 return GroupedListView<Message, DateTime>(
                     padding: const EdgeInsets.all(8),
@@ -109,32 +111,83 @@ class _ChatPagesState extends State<ChatPages> {
               },
             ),
           ),
-          IgnorePointer(
-            ignoring: isLoading,
-            child: MessageBar(
-              messageBarColor: whiteColor,
-              sendButtonColor: greyColor,
-              onSend: (String message) {
+          BlocListener<MessageCubit, MessageState>(
+            listener: (context, state) {
+              if (state is GetMessageLoading || state is PostMessageLoading) {
+                isLoading = true;
+              } else {
                 setState(() {
-                  listMessage.add(Message(
-                    id: listMessage.length + 1,
-                    message: message,
-                    fkOrtuId: 997,
-                    createdAt: DateTime.now(),
-                    isSentByMe: true,
-                  ));
-
-                  listMessage.add(Message(
-                    id: listMessage.length + 1,
-                    message: "Catas sedang mengetik",
-                    fkOrtuId: 997,
-                    createdAt: DateTime.now(),
-                    isSentByMe: false,
-                  ));
+                  isLoading = false;
                 });
-                context.read<MessageCubit>().postMessage(message);
-              },
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+              child: TextField(
+                controller: _messageEditingController,
+                style: bodyMedium(sizeFont: 12),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  hintText: isLoading
+                      ? 'Tunggu proses selesai'
+                      : 'Ketik pesan disini ',
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  suffixIcon: isLoading
+                      ? const Icon(
+                          Icons.remove_circle_outline_sharp,
+                          color: greyColor,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              listMessage.add(Message(
+                                id: listMessage.length + 1,
+                                message: _messageEditingController.text,
+                                fkOrtuId: 997,
+                                createdAt: DateTime.now(),
+                                isSentByMe: true,
+                              ));
+
+                              listMessage.add(Message(
+                                id: listMessage.length + 1,
+                                message: "Catas sedang mengetik",
+                                fkOrtuId: 997,
+                                createdAt: DateTime.now(),
+                                isSentByMe: false,
+                              ));
+                            });
+                            context
+                                .read<MessageCubit>()
+                                .postMessage(_messageEditingController.text);
+                            _messageEditingController.text = '';
+                          },
+                          icon: const Icon(
+                            Icons.send_sharp,
+                            color: greyColor,
+                          ),
+                        ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      width: 1,
+                      color: greyColor,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      width: 1,
+                      color: greyColor,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              ),
             ),
+          ),
+          const SizedBox(
+            height: 4,
           )
         ],
       ),
