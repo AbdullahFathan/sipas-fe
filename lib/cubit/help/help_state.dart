@@ -11,16 +11,9 @@ final class HelpInitial extends HelpState {}
 
 final class GetHelpLoading extends HelpState {}
 
-final class DontGetHelp extends HelpState {}
+final class GetHelpNoData extends HelpState {}
 
-final class GetHelpSuccess extends HelpState {
-  final List<HelpSubmit> helpSubmit;
-
-  const GetHelpSuccess(this.helpSubmit);
-
-  @override
-  List<Object> get props => [helpSubmit];
-}
+final class GetHelpSuccess extends HelpState {}
 
 final class GetHelpEror extends HelpState {
   final String text;
@@ -38,6 +31,7 @@ final class AddHelpEror extends HelpState {
   final String text;
 
   const AddHelpEror(this.text);
+
   @override
   List<Object> get props => [text];
 }

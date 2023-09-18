@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:sipas/config/color_theme.dart';
 
 enum StatusHelpType {
@@ -33,33 +34,38 @@ extension ColorText on StatusHelpType {
   }
 }
 
-class HelpSubmit {
-  HelpSubmit(this.title, this.description, this.statusHelp);
-
-  factory HelpSubmit.fromJson(Map<String, dynamic> json) {
-    final statusString = json['statusHelp'] as String;
-    final statusHelp = StatusHelpType.values.firstWhere(
-        (e) => e.toString().split('.').last == statusString,
-        orElse: () =>
-            StatusHelpType.accept); // Nilai default jika tidak ditemukan
-
-    return HelpSubmit(
-      json['title'] as String,
-      json['description'] as String,
-      statusHelp,
-    );
+StatusHelpType getStatusHelpTypeFromString(String statusString) {
+  switch (statusString) {
+    case 'diterima':
+      return StatusHelpType.accept;
+    case 'diproses':
+      return StatusHelpType.process;
+    case 'ditolak':
+      return StatusHelpType.denial;
+    default:
+      return StatusHelpType.process;
   }
+}
+
+class HelpSubmit {
+  HelpSubmit(
+    this.description,
+    this.statusHelp,
+    this.title,
+    this.additionalMessages,
+  );
 
   final String description;
   final StatusHelpType statusHelp;
   final String title;
+  final String additionalMessages;
 
   Map<String, dynamic> toJson() {
     return {
       'title': title,
       'description': description,
-      'statusHelp':
-          statusHelp.toString().split('.').last, // Mengambil nama enum
+      'additionalMessages': additionalMessages,
+      'statusHelp': statusHelp.toString().split('.').last,
     };
   }
 }

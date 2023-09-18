@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/data/model/help.dart';
+import 'package:sipas/data/model/user.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 
 class DetailBantuanPage extends StatelessWidget {
@@ -31,10 +32,6 @@ class DetailBantuanPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "Tanggal Pengajuan: 18 Oktober 2023",
-                style: headline(sizeFont: 16),
-              ),
               const SizedBox(
                 height: 7,
               ),
@@ -53,7 +50,7 @@ class DetailBantuanPage extends StatelessWidget {
                 height: 7,
               ),
               Text(
-                "Nama Pengaju: Hanifa",
+                "Nama Pengaju: ${currUser.data.namaIbu}",
                 style: headline(sizeFont: 16),
               ),
               const SizedBox(
@@ -67,7 +64,9 @@ class DetailBantuanPage extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                "Mohon untuk bersabar hingaa tenaga kesehatan fasilitas merespon ajuan anda",
+                helpSubmit.additionalMessages == ""
+                    ? "Mohon untuk bersabar hingaa tenaga kesehatan fasilitas merespon ajuan anda"
+                    : helpSubmit.additionalMessages,
                 style: headline(sizeFont: 16),
               ),
               const SizedBox(

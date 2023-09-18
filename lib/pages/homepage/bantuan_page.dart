@@ -45,11 +45,8 @@ class _BantuanPageState extends State<BantuanPage>
       appBar: customAppBar(context, 'Ajukan Bantuan'),
       body: BlocConsumer<HelpCubit, HelpState>(
         listener: (context, state) {
-          print("State saat ini adalah $state");
           if (state is GetHelpEror) {
             Navigator.pushNamed(context, "/eror", arguments: state.text);
-          } else if (state is AddHelpSuccess) {
-            context.read<HelpCubit>().fetchHelpData();
           }
         },
         builder: (context, state) {

@@ -23,13 +23,20 @@ class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
   final TextEditingController _judulTextController = TextEditingController();
   final TextEditingController _descriptionTextController =
       TextEditingController();
+
+  @override
+  void dispose() {
+    _judulTextController.dispose();
+    _descriptionTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context, 'Ajukan'),
       body: BlocConsumer<HelpCubit, HelpState>(
         listener: (context, state) {
-          print("State saat ini adalah $state");
           if (state is AddHelpEror) {
             Navigator.pushNamed(context, "/eror", arguments: state.text);
           } else if (state is AddHelpSuccess) {
@@ -107,16 +114,19 @@ class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
                       SizedBox(
                         width: double.infinity,
                         child: OrangeButton(
-                            contentText: "Simpan Perubahan",
-                            minimumSize: const Size(328, 48),
-                            maximumSize: const Size(double.infinity, 48),
-                            onPressedFunc: () =>
-                                context.read<HelpCubit>().addHelpData(
-                                      HelpSubmit(
-                                          _judulTextController.text,
-                                          _descriptionTextController.text,
-                                          StatusHelpType.process),
-                                    )),
+                          contentText: "Simpan Perubahan",
+                          minimumSize: const Size(328, 48),
+                          maximumSize: const Size(double.infinity, 48),
+                          onPressedFunc: () =>
+                              context.read<HelpCubit>().addHelpData(
+                                    HelpSubmit(
+                                      _descriptionTextController.text,
+                                      StatusHelpType.process,
+                                      _descriptionTextController.text,
+                                      '',
+                                    ),
+                                  ),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
