@@ -10,15 +10,15 @@ class PregnancyServices {
     Prenangcy prenangcyData = Prenangcy();
 
     try {
-      var responnse = await _dio.get("$BASE_URL/kehamilan/${currUser.data.id}",
+      var responnse = await _dio.get("$BASE_URL/kehamilan/list?page=0&limit=10",
           options: Options(
               headers: {'Authorization': 'Bearer ${currUser.jwtToken} '}));
       if (responnse.statusCode == 200) {
         if (responnse.data["success"]) {
           prenangcyData = Prenangcy(
-            id: responnse.data['data']['id'],
-            namaCalonBayi: responnse.data['data']['namaCalonBayi'],
-            tanggalPertamaHaid: responnse.data['data']['tanggalPertamaHaid'],
+            id: responnse.data['data'][0]['id'],
+            namaCalonBayi: responnse.data['data'][0]['namaCalonBayi'],
+            tanggalPertamaHaid: responnse.data['data'][0]['tanggalPertamaHaid'],
           );
         }
         return prenangcyData;

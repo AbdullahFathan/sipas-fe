@@ -1,20 +1,24 @@
 class User {
   Data data;
   String jwtToken;
+  String? namaFaskes;
 
   User({
     required this.data,
     required this.jwtToken,
+    required this.namaFaskes,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         data: Data.fromJson(json["data"]),
         jwtToken: json["jwtToken"],
+        namaFaskes: json['namaFaskes'],
       );
 
   Map<String, dynamic> toJson() => {
         "data": data.toJson(),
         "jwtToken": jwtToken,
+        "namaFaskes": namaFaskes,
       };
 }
 
@@ -57,4 +61,5 @@ User currUser = User(
         namaAyah: '',
         email: '',
         isConnectedWithFaskes: false),
-    jwtToken: '');
+    jwtToken: '',
+    namaFaskes: null);

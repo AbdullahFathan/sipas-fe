@@ -6,6 +6,7 @@ import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/data/constants/our_service_const.dart';
 import 'package:sipas/data/model/user.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 
 import 'package:sipas/pages/widget/orange_button.dart';
 
@@ -18,13 +19,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    context.read<HealthCubit>().isConnextedFakes();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    print(1);
+    print(
+      currUser.namaFaskes,
+    );
+    print(currUser.data.isConnectedWithFaskes);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -38,18 +38,29 @@ class _HomePageState extends State<HomePage> {
               style: heading1(),
             ),
           ),
-          BlocBuilder<HealthCubit, HealthState>(
+          BlocConsumer<HealthCubit, HealthState>(
+            listener: (context, state) {
+              if (state is SuccessConnectedFakes) {
+                context.read<HealthCubit>().isConnextedFakes();
+              }
+            },
             builder: (context, state) {
               if (state is HasConnectedFakes) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16, top: 2),
                   child: Text(
-                    "Selamat! Anda telah berhasil terhubung dengan Puskesmas Lumut",
+                    "Selamat! Anda telah berhasil terhubung dengan Puskesmas ${currUser.namaFaskes}",
                     style: bodyMedium(
                       sizeFont: 14,
                       colorFont: greenColor,
                     ),
                   ),
+                );
+              } else if (state is LoadingConnectedFakes) {
+                return const SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: LoadingWidget(),
                 );
               }
               return SizedBox(
