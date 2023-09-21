@@ -48,12 +48,12 @@ StatusHelpType getStatusHelpTypeFromString(String statusString) {
 }
 
 class HelpSubmit {
-  HelpSubmit(
-    this.description,
-    this.statusHelp,
-    this.title,
-    this.additionalMessages,
-  );
+  HelpSubmit({
+    required this.description,
+    required this.statusHelp,
+    required this.title,
+    required this.additionalMessages,
+  });
 
   final String description;
   final StatusHelpType statusHelp;

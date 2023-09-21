@@ -40,7 +40,7 @@ class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
           if (state is AddHelpEror) {
             Navigator.pushNamed(context, "/eror", arguments: state.text);
           } else if (state is AddHelpSuccess) {
-            Navigator.pushNamed(context, bantuanPage);
+            Navigator.pushReplacementNamed(context, bantuanPage);
           }
         },
         builder: (context, state) {
@@ -117,15 +117,16 @@ class _FormAjuanBantuanPageState extends State<FormAjuanBantuanPage> {
                           contentText: "Simpan Perubahan",
                           minimumSize: const Size(328, 48),
                           maximumSize: const Size(double.infinity, 48),
-                          onPressedFunc: () =>
-                              context.read<HelpCubit>().addHelpData(
-                                    HelpSubmit(
-                                      _descriptionTextController.text,
-                                      StatusHelpType.process,
-                                      _descriptionTextController.text,
-                                      '',
-                                    ),
-                                  ),
+                          onPressedFunc: () => context
+                              .read<HelpCubit>()
+                              .addHelpData(
+                                HelpSubmit(
+                                  additionalMessages: ' ',
+                                  description: _descriptionTextController.text,
+                                  statusHelp: StatusHelpType.process,
+                                  title: _judulTextController.text,
+                                ),
+                              ),
                         ),
                       ),
                       const SizedBox(

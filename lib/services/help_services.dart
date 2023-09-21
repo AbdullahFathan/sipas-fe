@@ -37,10 +37,10 @@ class HelpServices {
       if (response.statusCode == 200 && response.data['data'] != null) {
         for (var item in response.data['data']) {
           HelpSubmit dataJson = HelpSubmit(
-            item['deskripsi'],
-            getStatusHelpTypeFromString(item['status']),
-            item['judul'],
-            item['pesanTambahan'],
+            additionalMessages: item['pesanTambahan'],
+            description: item['deskripsi'],
+            statusHelp: getStatusHelpTypeFromString(item['status']),
+            title: item['judul'],
           );
           dataHelpUser.add(dataJson);
         }
