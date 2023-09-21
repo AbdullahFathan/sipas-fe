@@ -91,13 +91,15 @@ class _ArticlePageState extends State<ArticlePage> {
               }
             },
             builder: (context, state) {
-              if (state is FetchArticelLoading) {
+              print(state);
+              if (state is ReadArticelBookSuccess) {
                 return const SliverToBoxAdapter(child: LoadingWidget());
               } else if (state is FetchArticelNoData) {
                 return const Center(
                   child: Text("Tidak ada data artikel dari puskesmas "),
                 );
               }
+
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {

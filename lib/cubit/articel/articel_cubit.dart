@@ -72,19 +72,6 @@ class ArticelCubit extends Cubit<ArticelState> {
     }
   }
 
-  void getListArticle() async {
-    emit(FetchArticelLoading());
-    try {
-      await _articelServices.fetcListArticel();
-
-      listDataArticel.isNotEmpty
-          ? emit(FetchArticelSucces())
-          : emit(FetchArticelNoData());
-    } catch (eror) {
-      emit(FetchArticelEror("eror at getListArticle: ${eror.toString()} "));
-    }
-  }
-
   void searchArticel(String titleArticel) async {
     emit(SearchArticelLoading());
     try {
@@ -99,8 +86,18 @@ class ArticelCubit extends Cubit<ArticelState> {
     }
   }
 
-  void fetchDataArticel() {
+  void fetchDataArticel() async {
+    emit(FetchArticelLoading());
     readArticelBook();
-    getListArticle();
+
+    try {
+      await _articelServices.fetcListArticel();
+
+      listDataArticel.isNotEmpty
+          ? emit(FetchArticelSucces())
+          : emit(FetchArticelNoData());
+    } catch (eror) {
+      emit(FetchArticelEror("eror at getListArticle: ${eror.toString()} "));
+    }
   }
 }

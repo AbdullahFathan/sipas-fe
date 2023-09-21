@@ -13,6 +13,7 @@ class AuthServices {
       if (response != null) {
         User newUser = User.fromJson(response);
         currUser = newUser;
+        print(currUser.data.isConnectedWithFaskes);
         return true;
       }
     } catch (eror) {
@@ -32,11 +33,13 @@ class AuthServices {
         await Cache.writeData(key: userToken, value: {
           'data': response.data['data'],
           'jwtToken': response.data['jwtToken'],
+          'namaFaskes': null,
         });
 
         User newUser = User(
           data: Data.fromJson(response.data['data']),
           jwtToken: response.data['jwtToken'],
+          namaFaskes: null,
         );
         currUser = newUser;
 

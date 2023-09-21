@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
             create: (context) => AuthCubit()..isHasLogin(),
           ),
           BlocProvider(
-            create: (context) => HealthCubit(),
+            create: (context) => HealthCubit()..isConnextedFakes(),
           ),
           BlocProvider(
             create: (context) => PregnancyCubit(),
@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
             create: (context) => ChildCubit(),
           ),
           BlocProvider(
-            create: (context) => ArticelCubit(),
+            create: (context) => ArticelCubit()..fetchDataArticel(),
           ),
           BlocProvider(
             create: (context) => RecipesCubit(),

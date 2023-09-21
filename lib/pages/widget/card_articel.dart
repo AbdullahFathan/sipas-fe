@@ -57,6 +57,12 @@ class CardArticel extends StatelessWidget {
               child: Image.network(
                 singleAricel.linkGambar,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/images/baby.jpg',
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             )
           ],

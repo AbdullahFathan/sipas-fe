@@ -7,6 +7,7 @@ class ArticelServices {
   final Dio _dio = Dio();
 
   Future<void> fetcListArticel() async {
+    listDataArticel = [];
     try {
       var response = await _dio.get('$BASE_URL/artikel/ortu/list',
           options: Options(
