@@ -26,4 +26,21 @@ class HealthServices {
 
     return false;
   }
+
+  Future<bool> fetchFaskesName() async {
+    try {
+      var response = await _dio.get("$BASE_URL/ortu/faskes/description",
+          options: Options(
+              headers: {'Authorization': 'Bearer ${currUser.jwtToken} '}));
+
+      if (response.statusCode == 200) {
+        currUser.namaFaskes = response.data['data']['faskes']['username'];
+        await Cache.writeData(key: userToken, value: currUser.toJson());
+        return true;
+      }
+    } catch (eror) {
+      throw Exception("eror at login ${eror.toString()}");
+    }
+    return false;
+  }
 }

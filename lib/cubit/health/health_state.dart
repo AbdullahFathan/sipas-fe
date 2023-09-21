@@ -14,6 +14,8 @@ final class ErorConnectedFakes extends HealthState {
 
 final class HasConnectedFakes extends HealthState {}
 
+final class SuccessConnectedFakes extends HealthState {}
+
 final class DontConnectedFakes extends HealthState {}
 
 final class LoadingConnectedFakes extends HealthState {}

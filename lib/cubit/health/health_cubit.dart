@@ -10,9 +10,16 @@ class HealthCubit extends Cubit<HealthState> {
   final HealthServices _healthServices = HealthServices();
 
   void isConnextedFakes() async {
-    currUser.data.isConnectedWithFaskes
-        ? emit(HasConnectedFakes())
-        : emit(DontConnectedFakes());
+    print(22);
+    if (currUser.data.isConnectedWithFaskes) {
+      print(23);
+      emit(LoadingConnectedFakes());
+      var res = await _healthServices.fetchFaskesName();
+      if (res) emit(HasConnectedFakes());
+    } else {
+      emit(DontConnectedFakes());
+    }
+    print(24);
   }
 
   void connedtedfakes(String code) async {
@@ -20,7 +27,7 @@ class HealthCubit extends Cubit<HealthState> {
       emit(LoadingConnectedFakes());
       var response = await _healthServices.connedtedfakes(code);
       response
-          ? emit(HasConnectedFakes())
+          ? emit(SuccessConnectedFakes())
           : emit(ErorConnectedFakes("Fail to connect"));
     } catch (eror) {
       emit(ErorConnectedFakes(eror.toString()));

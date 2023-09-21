@@ -4,6 +4,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/auth/auth_cubit.dart';
+import 'package:sipas/cubit/health/health_cubit.dart';
 import 'package:sipas/pages/auth/widget/password_form.dart';
 import 'package:sipas/pages/auth/widget/tap_text.dart';
 import 'package:sipas/pages/auth/widget/text_form.dart';
@@ -37,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSucess) {
+              context.read<HealthCubit>().isConnextedFakes();
               Navigator.pushReplacementNamed(context, appPagesRoute);
             } else if (state is AuthEror) {
               setState(() {
