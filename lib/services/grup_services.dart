@@ -6,7 +6,7 @@ import 'package:sipas/data/model/user.dart';
 class GrupSevices {
   final Dio _dio = Dio();
 
-  Future<List<Grup>> fetchGrup() async {
+  Future<List<Grup>?> fetchGrup() async {
     List<Grup> dataApi = [];
     try {
       var response = await _dio.get("$BASE_URL/whatsapp/ortu?limit=10&page=0",
@@ -21,10 +21,11 @@ class GrupSevices {
           );
           dataApi.add(dataJson);
         }
+        return dataApi;
       }
     } catch (eror) {
       throw Exception("eror at fetchGrup ${eror.toString()}");
     }
-    return dataApi;
+    return null;
   }
 }

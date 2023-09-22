@@ -48,8 +48,8 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
               }
             },
             builder: (context, state) {
-              if (state is DontPregnancyData) {
-                return addDataKehamilan(_nameTextController);
+              if (state is LoadingPregnancyData) {
+                return const LoadingWidget();
               } else if (state is HasPregnancyData) {
                 return showDataKehamilan(
                     context,
@@ -63,7 +63,8 @@ class _PantauKehamilanTabState extends State<PantauKehamilanTab> {
                     state.dataPrenangcy.tanggalPertamaHaid.toString(),
                     periksaHamilRoute);
               }
-              return LoadingWidget();
+
+              return addDataKehamilan(_nameTextController);
             },
           );
         }

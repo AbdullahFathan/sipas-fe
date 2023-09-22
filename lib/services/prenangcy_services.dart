@@ -14,7 +14,9 @@ class PregnancyServices {
           options: Options(
               headers: {'Authorization': 'Bearer ${currUser.jwtToken} '}));
       if (responnse.statusCode == 200) {
-        if (responnse.data["success"]) {
+        if (responnse.data["success"] &&
+            (responnse.data['data'] as List).isNotEmpty) {
+          print("list tidak kosong");
           prenangcyData = Prenangcy(
             id: responnse.data['data'][0]['id'],
             namaCalonBayi: responnse.data['data'][0]['namaCalonBayi'],

@@ -15,7 +15,7 @@ class GrupCubit extends Cubit<GrupState> {
     try {
       var response = await _grupSevices.fetchGrup();
 
-      response.isNotEmpty ? emit(GrupSucces(response)) : emit(GrupNoData());
+      response != null ? emit(GrupSucces(response)) : emit(GrupNoData());
     } catch (eror) {
       emit(GrupEror("There is eror at getGrup : ${eror.toString()}"));
     }

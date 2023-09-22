@@ -80,7 +80,7 @@ class RouteGenerator {
       case detailRecipesRoute:
         return MaterialPageRoute(
             builder: (_) => DetailRecipes(
-                  recipes: settings.arguments as DetailRecipesDummy,
+                  recipes: settings.arguments as Recepies,
                 ));
       case searchArticelRoute:
         return MaterialPageRoute(builder: (_) => const SearchArticel());

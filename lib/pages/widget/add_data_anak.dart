@@ -85,7 +85,7 @@ class _AddDataAnakWidgetState extends State<AddDataAnakWidget> {
         //dropdown child gender
         CustomDropDown(
           data: const ["laki", "perempuan"],
-          labelText: 'laki',
+          labelText: 'Jenis Kelamin',
           subText: 'Pilih jenis kelamin dari anak Anda',
           onValueSelected: _handleChildGenderSelected,
         ),

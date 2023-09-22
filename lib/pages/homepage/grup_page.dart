@@ -91,7 +91,7 @@ class _GrupPageState extends State<GrupPage> {
                             OrangeButton(
                               contentText: 'Gabung',
                               minimumSize: const Size(100, 40),
-                              maximumSize: const Size(100, 40),
+                              maximumSize: const Size(double.infinity, 40),
                               onPressedFunc: () => _launchInBrowser(
                                   state.listGrup[index].linkGrup),
                             )
