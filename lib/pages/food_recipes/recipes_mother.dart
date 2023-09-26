@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
+import 'package:sipas/cubit/recipes/recipes_cubit.dart';
 import 'package:sipas/data/constants/recipes_cons.dart';
+import 'package:sipas/data/model/detail_recipes.dart';
 import 'package:sipas/pages/widget/filter_chip.dart';
-import 'package:sipas/pages/widget/mother_recipes.dart';
+import 'package:sipas/pages/widget/card_recepies.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 
 class RecipesMother extends StatefulWidget {
   const RecipesMother({super.key});
@@ -79,7 +83,41 @@ class _RecipesMotherState extends State<RecipesMother> {
             ),
           ),
         ),
-        motherRecipes(),
+        BlocConsumer<RecipesCubit, RecipesState>(
+          listener: (context, state) {
+            if (state is FetchPrenangcyRecepiesEror) {
+              Navigator.pushNamed(context, "/eror", arguments: state.text);
+            } else if (state is ReadRecipesSuccess ||
+                state is ReadRecipesEror) {
+              context.read<RecipesCubit>().fetchRecepiesData();
+            }
+          },
+          builder: (context, state) {
+            if (state is FetchChildRecepiesLoading) {
+              return const SliverToBoxAdapter(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: LoadingWidget(),
+              ));
+            } else if (state is FetchPrenangcyRecepiesNoData) {
+              return const SliverToBoxAdapter(
+                child: Center(
+                  child: Text("Tidak ada data"),
+                ),
+              );
+            }
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return CardRecepies(
+                    recepiesData: listPrenangcyRecepies[index],
+                  );
+                },
+                childCount: listPrenangcyRecepies.length,
+              ),
+            );
+          },
+        ),
       ],
     );
   }

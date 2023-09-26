@@ -4,7 +4,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/articel/articel_cubit.dart';
-import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/model/articel.dart';
 import 'package:sipas/pages/widget/card_articel.dart';
 
 import 'package:sipas/pages/widget/loading_widget.dart';
@@ -88,11 +88,14 @@ class _ArticlePageState extends State<ArticlePage> {
             listener: (context, state) {
               if (state is FetchArticelEror) {
                 Navigator.pushNamed(context, "/eror", arguments: state.text);
+              } else if (state is ReadArticelBookSuccess ||
+                  state is ReadArticelBookEror) {
+                context.read<ArticelCubit>().fetchDataArticel();
               }
             },
             builder: (context, state) {
               print(state);
-              if (state is ReadArticelBookSuccess) {
+              if (state is FetchArticelLoading) {
                 return const SliverToBoxAdapter(child: LoadingWidget());
               } else if (state is FetchArticelNoData) {
                 return const Center(

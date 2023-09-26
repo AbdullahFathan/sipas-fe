@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
+import 'package:sipas/cubit/recipes/recipes_cubit.dart';
 import 'package:sipas/data/constants/recipes_cons.dart';
+import 'package:sipas/data/model/detail_recipes.dart';
 import 'package:sipas/pages/widget/filter_chip.dart';
+import 'package:sipas/pages/widget/loading_widget.dart';
 import 'package:sipas/pages/widget/modal_bottom.dart';
-import 'package:sipas/pages/widget/mother_recipes.dart';
+import 'package:sipas/pages/widget/card_recepies.dart';
 
 class SearchRecipesPage extends StatefulWidget {
   final String textTitle;
@@ -47,6 +51,16 @@ class _SearchRecipesPageState extends State<SearchRecipesPage> {
                         Expanded(
                           child: TextField(
                             controller: searchTextController,
+                            onSubmitted: (value) {
+                              String recepiesFor = "";
+                              widget.textTitle.contains("Ibu Hamil")
+                                  ? recepiesFor = "kehamilan"
+                                  : recepiesFor = "bayianak";
+
+                              context
+                                  .read<RecipesCubit>()
+                                  .searchRecepies(value, recepiesFor);
+                            },
                             decoration: InputDecoration(
                               hintText: "Cari Resep disini",
                               prefixIcon: const Icon(
@@ -121,7 +135,54 @@ class _SearchRecipesPageState extends State<SearchRecipesPage> {
                   ),
                 ),
               ),
-              motherRecipes(),
+              BlocConsumer<RecipesCubit, RecipesState>(
+                listener: (context, state) {
+                  if (state is SearchRecepiesEror) {
+                    Navigator.pushNamed(context, "/eror",
+                        arguments: state.text);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is SearchRecepiesLoading) {
+                    return const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 35),
+                        child: LoadingWidget(),
+                      ),
+                    );
+                  } else if (state is SearchRecepiesNoData) {
+                    return const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 35),
+                        child: Center(
+                          child: Text("Resep Tidak ditemukan"),
+                        ),
+                      ),
+                    );
+                  } else if (state is SearchRecepiesSuccess) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return CardRecepies(
+                            recepiesData: state.dataApi[index],
+                          );
+                        },
+                        childCount: state.dataApi.length,
+                      ),
+                    );
+                  }
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return CardRecepies(
+                          recepiesData: listPrenangcyRecepies[index],
+                        );
+                      },
+                      childCount: listPrenangcyRecepies.length,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

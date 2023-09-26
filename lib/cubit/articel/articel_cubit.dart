@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/model/articel.dart';
 import 'package:sipas/services/articel_services.dart';
 import 'package:sipas/services/cahce_services.dart';
 import 'package:sipas/services/key_chace.dart';
@@ -88,8 +88,6 @@ class ArticelCubit extends Cubit<ArticelState> {
 
   void fetchDataArticel() async {
     emit(FetchArticelLoading());
-    readArticelBook();
-
     try {
       await _articelServices.fetcListArticel();
 

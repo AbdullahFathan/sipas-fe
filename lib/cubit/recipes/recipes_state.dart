@@ -23,3 +23,43 @@ final class ReadRecipesEror extends RecipesState {
 
   ReadRecipesEror(this.text);
 }
+
+final class FetchPrenangcyRecepiesSuccess extends RecipesState {}
+
+final class FetchPrenangcyRecepiesNoData extends RecipesState {}
+
+final class FetchPrenangcyRecepiesLoading extends RecipesState {}
+
+final class FetchPrenangcyRecepiesEror extends RecipesState {
+  final String text;
+
+  FetchPrenangcyRecepiesEror(this.text);
+}
+
+final class FetchChildRecepiesSuccess extends RecipesState {}
+
+final class FetchChildRecepiesNoData extends RecipesState {}
+
+final class FetchChildRecepiesLoading extends RecipesState {}
+
+final class FetchChildRecepiesEror extends RecipesState {
+  final String text;
+
+  FetchChildRecepiesEror(this.text);
+}
+
+final class SearchRecepiesSuccess extends RecipesState {
+  final List<Recepies> dataApi;
+
+  SearchRecepiesSuccess(this.dataApi);
+}
+
+final class SearchRecepiesNoData extends RecipesState {}
+
+final class SearchRecepiesLoading extends RecipesState {}
+
+final class SearchRecepiesEror extends RecipesState {
+  final String text;
+
+  SearchRecepiesEror(this.text);
+}

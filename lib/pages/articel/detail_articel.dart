@@ -6,7 +6,7 @@ import 'package:sipas/config/font_theme.dart';
 
 import 'package:sipas/cubit/articel/articel_cubit.dart';
 
-import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/model/articel.dart';
 import 'package:sipas/pages/widget/app_bar.dart';
 
 class DetailArticel extends StatefulWidget {

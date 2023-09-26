@@ -1,24 +1,27 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:sipas/data/dummy/detail_recipes.dart';
+import 'package:sipas/data/model/detail_recipes.dart';
 import 'package:sipas/services/cahce_services.dart';
 import 'package:sipas/services/key_chace.dart';
+import 'package:sipas/services/recepies_services.dart';
 
 part 'recipes_state.dart';
 
 class RecipesCubit extends Cubit<RecipesState> {
   RecipesCubit() : super(RecipesInitial());
 
+  final RecepiesServices _recepiesServices = RecepiesServices();
+
   void readRecepiesBook() async {
     try {
       var response = await Cache.getData(recepiesData);
-      if (response != null) {
+      if (response != null && (response as List).isNotEmpty) {
         for (var item in response) {
-          DetailRecipesDummy dataJson = DetailRecipesDummy.fromJson(item);
+          Recepies dataJson = Recepies.fromJson(item);
 
           bool exists = favoritRecepies.any((existingData) {
-            return existingData.title == dataJson.title &&
-                existingData.image == dataJson.image;
+            return existingData.id == dataJson.id &&
+                existingData.urlGambar == dataJson.urlGambar;
           });
 
           if (!exists) {
@@ -34,7 +37,7 @@ class RecipesCubit extends Cubit<RecipesState> {
     }
   }
 
-  void addBookmark(DetailRecipesDummy recipesDummy) async {
+  void addBookmark(Recepies recipesDummy) async {
     List<Map<String, dynamic>> articelJson = [];
     try {
       emit(AddRecipesLoading());
@@ -51,7 +54,7 @@ class RecipesCubit extends Cubit<RecipesState> {
     }
   }
 
-  void removeBookmark(DetailRecipesDummy recipesDummy) async {
+  void removeBookmark(Recepies recipesDummy) async {
     List<Map<String, dynamic>> articelJson = [];
     try {
       emit(AddRecipesLoading());
@@ -65,6 +68,56 @@ class RecipesCubit extends Cubit<RecipesState> {
       emit(AddRecipesSuccess());
     } catch (eror) {
       emit(AddRecipesEror(eror.toString()));
+    }
+  }
+
+  void getListPrenangcyRecepies() async {
+    emit(FetchPrenangcyRecepiesLoading());
+    try {
+      await _recepiesServices.fetchListRecepiesPrenangcy();
+
+      listPrenangcyRecepies.isNotEmpty
+          ? emit(FetchPrenangcyRecepiesSuccess())
+          : emit(FetchPrenangcyRecepiesNoData());
+    } catch (eror) {
+      emit(FetchPrenangcyRecepiesEror(
+          "there is eror getListPrenangcyRecepies: ${eror.toString()} "));
+    }
+  }
+
+  void getListChildRecepies() async {
+    emit(FetchChildRecepiesLoading());
+    try {
+      await _recepiesServices.fetchListRecepiesChild();
+
+      listPrenangcyRecepies.isNotEmpty
+          ? emit(FetchChildRecepiesSuccess())
+          : emit(FetchChildRecepiesNoData());
+    } catch (eror) {
+      emit(FetchChildRecepiesEror(
+          "there is eror getListPrenangcyRecepies: ${eror.toString()} "));
+    }
+  }
+
+  void fetchRecepiesData() {
+    getListPrenangcyRecepies();
+    getListChildRecepies();
+  }
+
+  void searchRecepies(
+    String title,
+    String recepiesFor,
+  ) async {
+    emit(SearchRecepiesLoading());
+    try {
+      var response = await _recepiesServices.searchByTitle(recepiesFor, title);
+
+      response.isNotEmpty
+          ? emit(SearchRecepiesSuccess(response))
+          : emit(SearchRecepiesNoData());
+    } catch (eror) {
+      emit(SearchRecepiesEror(
+          "There is eror at searchRecepies: ${eror.toString()} "));
     }
   }
 }

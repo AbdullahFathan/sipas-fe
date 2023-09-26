@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sipas/data/constants/base.dart';
-import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/model/articel.dart';
 import 'package:sipas/data/model/user.dart';
 
 class ArticelServices {

@@ -42,10 +42,10 @@ class MainApp extends StatelessWidget {
             create: (context) => ChildCubit(),
           ),
           BlocProvider(
-            create: (context) => ArticelCubit()..fetchDataArticel(),
+            create: (context) => ArticelCubit()..readArticelBook(),
           ),
           BlocProvider(
-            create: (context) => RecipesCubit(),
+            create: (context) => RecipesCubit()..readRecepiesBook(),
           ),
           BlocProvider(
             create: (context) => HelpCubit(),

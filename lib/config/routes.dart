@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/data/dummy/articel.dart';
-import 'package:sipas/data/dummy/detail_recipes.dart';
+import 'package:sipas/data/model/articel.dart';
+import 'package:sipas/data/model/detail_recipes.dart';
 import 'package:sipas/data/model/help.dart';
 import 'package:sipas/pages/articel/detail_articel.dart';
 import 'package:sipas/pages/articel/search_articel_page.dart';

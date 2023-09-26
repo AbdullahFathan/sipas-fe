@@ -4,7 +4,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 import 'package:sipas/config/route_name.dart';
 import 'package:sipas/cubit/recipes/recipes_cubit.dart';
-import 'package:sipas/data/dummy/detail_recipes.dart';
+import 'package:sipas/data/model/detail_recipes.dart';
 
 class SavedRecipestab extends StatefulWidget {
   const SavedRecipestab({super.key});
@@ -94,7 +94,7 @@ class _SavedRecipestabState extends State<SavedRecipestab> {
                                     padding: const EdgeInsets.only(
                                         top: 15, bottom: 20),
                                     child: Text(
-                                      favoritRecepies[index].title,
+                                      favoritRecepies[index].judulResep,
                                       style: headline(sizeFont: 14),
                                     ),
                                   ),
@@ -110,9 +110,7 @@ class _SavedRecipestabState extends State<SavedRecipestab> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 4, horizontal: 8),
                                           child: Text(
-                                            favoritRecepies[index]
-                                                .typeRecipes[0]
-                                                .text,
+                                            favoritRecepies[index].jenis,
                                             style: headline(
                                               sizeFont: 12,
                                             ),
@@ -133,8 +131,7 @@ class _SavedRecipestabState extends State<SavedRecipestab> {
                                               vertical: 4, horizontal: 8),
                                           child: Text(
                                             favoritRecepies[index]
-                                                .typeRecipes[1]
-                                                .text,
+                                                .targetUsiaResep,
                                             style: headline(
                                               sizeFont: 12,
                                             ),
@@ -146,7 +143,7 @@ class _SavedRecipestabState extends State<SavedRecipestab> {
                                 ],
                               ),
                               Image.network(
-                                favoritRecepies[index].image,
+                                favoritRecepies[index].urlGambar,
                                 width: 84,
                                 height: 74,
                               )

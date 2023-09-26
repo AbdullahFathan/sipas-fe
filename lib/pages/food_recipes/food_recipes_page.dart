@@ -27,6 +27,7 @@ class _FoodRecipesPageState extends State<FoodRecipesPage>
   void dispose() {
     _tabController.removeListener(_handleTabChange);
     _tabController.dispose();
+
     super.dispose();
   }
 

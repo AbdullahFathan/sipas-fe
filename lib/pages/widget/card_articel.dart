@@ -3,7 +3,7 @@ import 'package:sipas/config/color_theme.dart';
 import 'package:sipas/config/font_theme.dart';
 
 import 'package:sipas/config/route_name.dart';
-import 'package:sipas/data/dummy/articel.dart';
+import 'package:sipas/data/model/articel.dart';
 
 class CardArticel extends StatelessWidget {
   final Articel singleAricel;
